@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Function(int) onButtonPressed;
+  const HomePage({super.key, required this.onButtonPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/second');
+                    onButtonPressed(1);
                   },
                   child: Card(
                     color: Colors.white,
@@ -97,7 +98,7 @@ class HomePage extends StatelessWidget {
                 // Second Card - Navigate to another route
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/second');
+                    onButtonPressed(2);
                   },
                   child: Card(
                     color: Colors.white,

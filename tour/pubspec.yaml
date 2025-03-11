@@ -39,6 +39,9 @@ dependencies:
   http: ^0.13.3
   dart_airtable: ^1.1.0
   url_launcher: ^6.3.1
+  json_annotation: ^4.9.0
+  json_serializable: ^6.9.4
+  build_runner: ^2.4.14
 
 dev_dependencies:
   flutter_test:
