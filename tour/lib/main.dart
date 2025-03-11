@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(16,33,49, 1),
+        scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
         useMaterial3: true,
         fontFamily: "JacquesFrancois",
       ),

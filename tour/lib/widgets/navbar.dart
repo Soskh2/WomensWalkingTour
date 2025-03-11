@@ -82,7 +82,7 @@ class _NavBarState extends State<NavBar> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
-          label: 'Test',
+          label: 'Tour',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
