@@ -9,6 +9,7 @@ import 'package:path/path.dart';  // To work with paths
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:dart_airtable/dart_airtable.dart';
+import 'package:tour/widgets/visitor_information_button.dart';
 
 
 
@@ -56,36 +57,153 @@ class _SitesPageState extends State<SitesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Locations')),
-      // body: locations.isEmpty
-      //     ? Center(child: CircularProgressIndicator())
-      //     : ListView.builder(
-      //         itemCount: locations.length,
-      //         itemBuilder: (context, index) {
-      //           final location = locations[index];
-      //           return ListTile(
-      //             title: Text(location.title),
-      //             leading: Image.asset(location.imagePath, width: 100, height: 100,),
-      //           );
-      //         },
-      //       ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Align everything to the left
+          children: [
+            Text(
+              'Sites',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(
+                height:
+                    16), // Adds some space between the title and the divider
+            Container(
+              width: 200.0, // Set the desired width for the divider
+              child: Divider(
+                thickness: 1,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            SizedBox(
+                height:
+                    8), // Adds some space between the divider and the button
+            Text(
+                'Click on any point below to get more information about a stop on the walking tour.'),
+            SizedBox(
+                height:
+                    16), // Adds some space between the divider and the button
+            VisitorInformationButton(),
+            SizedBox(
+                height: 16), // Adds some space between the button and the cards
+
+            // Cards
+            Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Distribute cards evenly
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 110,
+                      // padding: EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/TourImage.png', // Replace with your image asset
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              'Women at Yale: A Walking Tour',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                // Second Card - Navigate to another route
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 110,
+                      // padding: EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/Portrait.png', // Replace with your image asset
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              'Tour Sites',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                // Third Card - Launch URL
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 110,
+                      // padding: EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/Logo.png', // Replace with your image asset
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              'Women\'s Faculty Forum',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
 
-// class AirtableRecord {
-//   final String id;
-//   final String name; // Example fields, adjust based on your Airtable schema
-//   final String order_number; // Example fields, adjust based on your Airtable schema
-
-//   AirtableRecord({required this.id, required this.name});
-
-//   // Factory constructor to create an AirtableRecord from a JSON object
-//   factory AirtableRecord.fromJson(Map<String, dynamic> json) {
-//     return AirtableRecord(
-//       id: json['id'],
-//       name: json['fields']['name'], // Adjust based on your Airtable schema
-//     );
-//   }
-// }
