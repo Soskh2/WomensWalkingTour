@@ -15,15 +15,15 @@ TourRecord _$TourRecordFromJson(Map<String, dynamic> json) => TourRecord(
     );
 
 Field _$FieldFromJson(Map<String, dynamic> json) => Field(
-      name: json['name'] as String?,
-      orderNumber: (json['orderNumber'] as num?)?.toInt(),
+      name: json['Name'] as String?,
+      orderNumber: (json['order number'] as num?)?.toInt(),
       included: json['included'] as bool?,
       description: json['description'] as String?,
-      image: Field._imageFromJson(json['image'] as Map<String, dynamic>),
-      audio: Field._audioFromJson(json['audio'] as Map<String, dynamic>),
+      image: Field._tourImageFromJson(json['image'] as List?),
+      audio: Field._audioFromJson(json['audio'] as List?),
     );
 
-Image _$ImageFromJson(Map<String, dynamic> json) => Image(
+TourImage _$TourImageFromJson(Map<String, dynamic> json) => TourImage(
       id: json['id'] as String?,
       width: (json['width'] as num?)?.toInt(),
       height: (json['height'] as num?)?.toInt(),
@@ -31,10 +31,9 @@ Image _$ImageFromJson(Map<String, dynamic> json) => Image(
       filename: json['filename'] as String?,
       size: (json['size'] as num?)?.toInt(),
       type: json['type'] as String?,
-      thumbnails: (json['thumbnails'] as List<dynamic>)
-          .map((e) =>
-              e == null ? null : Thumbnails.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      thumbnails: json['thumbnails'] == null
+          ? null
+          : Thumbnails.fromJson(json['thumbnails'] as Map<String, dynamic>),
     );
 
 Thumbnails _$ThumbnailsFromJson(Map<String, dynamic> json) => Thumbnails(

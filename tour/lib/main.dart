@@ -67,7 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
     return Scaffold(
       appBar: Header(),
-      body: pages[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: pages,
+      ),
       bottomNavigationBar: NavBar(onTabChanged: _onTabChanged, currentIndex: _currentIndex,),
     );
   }

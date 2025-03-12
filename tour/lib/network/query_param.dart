@@ -1,8 +1,7 @@
-class QP {
-  const QP._();
+// class QP {
+//   const QP._();
 
-  static Map<String, String> apiQP({required String apiKey, required String included}) => {
-    'included': included,
-    'apiKey': apiKey
-  };
-}
+//   static Map<String, String> apiQP({required String apiKey}) => {
+//     'apiKey': apiKey
+//   };
+// }

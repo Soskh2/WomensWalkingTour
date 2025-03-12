@@ -16,13 +16,19 @@ class NetworkService {
     return http.get(uri, headers: headers);
   }
 
-  static Future<http.Response> sendRequest({
+  static Future<http.Response?> sendRequest({
     required Uri uri,
     Map<String, String>? headers,
   }) async {
-    final header = _getHeaders();
 
-    final response = await _createRequest(uri: uri, headers: header);
-    return response;
+    try {
+      final header = _getHeaders();
+      final response = await _createRequest(uri: uri, headers: header);
+      return response;
+    } catch (e) {
+      print("Error - $e");
+      return null;
+    }
+
   }
 }

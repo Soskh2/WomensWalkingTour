@@ -16,7 +16,10 @@ class TourRecord {
     required this.fields,
   });
 
-  factory TourRecord.fromJson(Map<String, dynamic> json) => _$TourRecordFromJson(json);
+  factory TourRecord.fromJson(Map<String, dynamic> json) {
+    print('TourRecord fromJson: $json');
+    return _$TourRecordFromJson(json);
+  }
 }
 
 
@@ -26,10 +29,10 @@ class Field {
   final int? orderNumber;
   final bool? included;
   final String? description;
-  @JsonKey(fromJson: _imageFromJson, defaultValue: null) // Specify custom deserialization for Image
-  final Image? image;
+  @JsonKey(fromJson: _tourImageFromJson, defaultValue: null) // Specify custom deserialization for Image
+  final List<TourImage>? image;
   @JsonKey(fromJson: _audioFromJson, defaultValue: null) // Specify custom deserialization for Audio
-  final Audio? audio;
+  final List<Audio>? audio;
 
   Field({
     required this.name,
@@ -40,23 +43,30 @@ class Field {
     required this.audio,
   });
 
-  factory Field.fromJson(Map<String, dynamic> json) => _$FieldFromJson(json);
+  factory Field.fromJson(Map<String, dynamic> json) {
+    print('Field fromJson: $json'); // Debug the entire Field JSON
+    return _$FieldFromJson(json);
+  }
 
    // Custom deserialization function for Image
-  static _imageFromJson(Map<String, dynamic> json) {
-    if (json == null) return null; // Return a default Image if null
-    return Image.fromJson(json); // Call the fromJson constructor for Image
+  static List<TourImage>? _tourImageFromJson(List<dynamic>? jsonList) {
+    if (jsonList == null) return null; // Return null if list is empty or null
+    return jsonList
+        .map((jsonItem) => TourImage.fromJson(jsonItem as Map<String, dynamic>))
+        .toList(); // Mapping the list
   }
 
   // Custom deserialization function for Audio
-  static _audioFromJson(Map<String, dynamic> json) {
-    if (json == null) return null; // Return a default Audio if null
-    return Audio.fromJson(json); // Call the fromJson constructor for Audio
+  static List<Audio>? _audioFromJson(List<dynamic>? jsonList) {
+    if (jsonList == null) return null; // Return null if list is empty or null
+    return jsonList
+        .map((jsonItem) => Audio.fromJson(jsonItem as Map<String, dynamic>))
+        .toList(); // Mapping the list
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Image {
+class TourImage {
   final String? id;
   final int? width;
   final int? height;
@@ -64,9 +74,9 @@ class Image {
   final String? filename;
   final int? size;
   final String? type;
-  final List<Thumbnails?> thumbnails;
+  final Thumbnails? thumbnails;
 
-  Image({
+  TourImage({
     required this.id,
     required this.width,
     required this.height,
@@ -77,7 +87,10 @@ class Image {
     required this.thumbnails,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
+  factory TourImage.fromJson(Map<String, dynamic> json) {
+    print('TourImage fromJson: $json');
+    return _$TourImageFromJson(json);
+  }
 }
 
 @JsonSerializable(createToJson: false)
@@ -92,7 +105,10 @@ class Thumbnails {
     required this.full,
   });
 
-  factory Thumbnails.fromJson(Map<String, dynamic> json) => _$ThumbnailsFromJson(json);
+  factory Thumbnails.fromJson(Map<String, dynamic> json) {
+    print('Thumbnails fromJson: $json');
+    return _$ThumbnailsFromJson(json);
+  }
 }
 
 @JsonSerializable(createToJson: false)
@@ -107,7 +123,10 @@ class Thumbnail {
     required this.height,
   });
   
-  factory Thumbnail.fromJson(Map<String, dynamic> json) => _$ThumbnailFromJson(json);
+  factory Thumbnail.fromJson(Map<String, dynamic> json) {
+    print('Thumbnail fromJson: $json');
+    return _$ThumbnailFromJson(json);
+  }
 }
 
 
@@ -127,6 +146,9 @@ class Audio {
     required this.type,
   });
   
-  factory Audio.fromJson(Map<String, dynamic> json) => _$AudioFromJson(json);
+  factory Audio.fromJson(Map<String, dynamic> json) {
+    print('Audio fromJson: $json');
+    return _$AudioFromJson(json);
+  }
 }
  
