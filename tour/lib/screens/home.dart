@@ -67,6 +67,8 @@ class HomePage extends StatelessWidget {
                         children: [
                           Image.asset(
                             'assets/images/TourImage.png', // Replace with your image asset
+                            width: 135,
+                            height: 110,
                             fit: BoxFit.cover,
                           ),
                           SizedBox(width: 16),
@@ -100,7 +102,9 @@ class HomePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/images/Portrait.png', // Replace with your image asset
+                            'assets/images/Portrait.png', 
+                            width: 135,
+                            height: 110,
                             fit: BoxFit.cover,
                           ),
                           SizedBox(width: 16),
@@ -134,7 +138,9 @@ class HomePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/images/Logo.png', // Replace with your image asset
+                            'assets/images/Logo.png',
+                            width: 135,
+                            height: 110,
                             fit: BoxFit.cover,
                           ),
                           SizedBox(width: 16),

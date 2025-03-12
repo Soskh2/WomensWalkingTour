@@ -17,7 +17,7 @@ class TourRecord {
   });
 
   factory TourRecord.fromJson(Map<String, dynamic> json) {
-    print('TourRecord fromJson: $json');
+    // print('TourRecord fromJson: $json');
     return _$TourRecordFromJson(json);
   }
 }
@@ -44,7 +44,7 @@ class Field {
   });
 
   factory Field.fromJson(Map<String, dynamic> json) {
-    print('Field fromJson: $json'); // Debug the entire Field JSON
+    // print('Field fromJson: $json'); // Debug the entire Field JSON
     return _$FieldFromJson(json);
   }
 
@@ -88,7 +88,7 @@ class TourImage {
   });
 
   factory TourImage.fromJson(Map<String, dynamic> json) {
-    print('TourImage fromJson: $json');
+    // print('TourImage fromJson: $json');
     return _$TourImageFromJson(json);
   }
 }
@@ -106,7 +106,7 @@ class Thumbnails {
   });
 
   factory Thumbnails.fromJson(Map<String, dynamic> json) {
-    print('Thumbnails fromJson: $json');
+    // print('Thumbnails fromJson: $json');
     return _$ThumbnailsFromJson(json);
   }
 }
@@ -124,7 +124,7 @@ class Thumbnail {
   });
   
   factory Thumbnail.fromJson(Map<String, dynamic> json) {
-    print('Thumbnail fromJson: $json');
+    // print('Thumbnail fromJson: $json');
     return _$ThumbnailFromJson(json);
   }
 }
@@ -147,7 +147,7 @@ class Audio {
   });
   
   factory Audio.fromJson(Map<String, dynamic> json) {
-    print('Audio fromJson: $json');
+    // print('Audio fromJson: $json');
     return _$AudioFromJson(json);
   }
 }

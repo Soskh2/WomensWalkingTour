@@ -30,40 +30,80 @@ class Sites extends StatelessWidget {
               child: ListView.builder(
                   itemCount: fields.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          height: 110,
-                          // padding: EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              fields[index].image != null &&
-                                      fields[index].image!.isNotEmpty &&
-                                      fields[index].image?[0].url != null
-                                  ? Image.network(
-                                      fields[index].image![0].url!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : SizedBox(width: 32),
-                              SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  "${index + 1} - ${fields[index].name!}",
-                                  style: TextStyle(fontSize: 16),
-                                ),
+                    return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              height: 130,
+                              child: Row(
+                                children: [
+                                  fields[index].image != null &&
+                                          fields[index].image!.isNotEmpty &&
+                                          fields[index].image?[0].url != null
+                                      ? Image.network(
+                                          fields[index].image![0].url!,
+                                          width: 135,
+                                          height: 130,
+                                          fit: BoxFit.cover)
+                                      : SizedBox(width: 135),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start, // Align text to the left
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                            child:
+                                      Text(
+                                        "${index + 1} - ${fields[index].name!}",
+                                        style: TextStyle(fontSize: 16),
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                      )),
+                                      // ),
+                                      SizedBox(height: 4),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 16.0),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              // Your navigation logic or action on button press
+                                            },
+                                            style: TextButton.styleFrom(
+                                              side: BorderSide(
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor, // Border color
+                                              ),
+                                              // padding: EdgeInsets.symmetric(
+                                              //     vertical: 4, horizontal: 10),
+                                            ),
+                                            child: Text(
+                                              'View Page >',
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .secondaryHeaderColor, // Text color
+                                              ),
+                                            ),
+                                          ))
+                                    ],
+                                  ))
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
+                        ));
                   }),
             ));
           }
@@ -92,14 +132,10 @@ class Sites extends StatelessWidget {
 
   List<Field> _listOfFieldsFromJson(json) {
     json = json as List;
-    print("json ${json[0]['fields']['audio'][0]}");
     // Proceed with mapping if json is a list
     List<Field> fields = (json as List).map((e) {
-      print(
-          "Item being mapped: ${e['fields']}"); // Check each item being processed
       return Field.fromJson(e['fields'] as Map<String, dynamic>);
     }).toList();
-    print("fields $fields");
     return fields;
   }
 }

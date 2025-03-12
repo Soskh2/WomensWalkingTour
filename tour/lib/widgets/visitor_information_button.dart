@@ -13,8 +13,7 @@ class VisitorInformationButton extends StatelessWidget {
                   _showPopup(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Color.fromRGBO(2, 53, 108, 1), // Set background color
+                  backgroundColor: Theme.of(context).secondaryHeaderColor, // Set background color
                   foregroundColor: Colors.white, // Set text color
                 ),
                 child: Text('Visitor Information'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tour/screens/home.dart';
 import 'package:tour/screens/map.dart';
 import 'package:tour/screens/sites.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(16,33,49, 1),
+        secondaryHeaderColor: Color.fromRGBO(2, 53, 108, 1),
         scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
         useMaterial3: true,
         fontFamily: "JacquesFrancois",

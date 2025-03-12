@@ -4,6 +4,10 @@
         android:label="tour"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyC7VRiXgUK1LyZ18NcbDe9lOZ922IBFbbk"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -48,5 +52,7 @@
             <data android:scheme="https" />
             </intent>
     </queries>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
 </manifest>
