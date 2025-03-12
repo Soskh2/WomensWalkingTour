@@ -62,16 +62,15 @@ class Sites extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 5),
-                                            child:
-                                      Text(
-                                        "${index + 1} - ${fields[index].name!}",
-                                        style: TextStyle(fontSize: 16),
-                                        softWrap: true,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                      )),
+                                          padding:
+                                              const EdgeInsets.only(right: 5),
+                                          child: Text(
+                                            "${index + 1} - ${fields[index].name!}",
+                                            style: TextStyle(fontSize: 16),
+                                            softWrap: true,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                          )),
                                       // ),
                                       SizedBox(height: 4),
                                       Padding(
@@ -133,9 +132,25 @@ class Sites extends StatelessWidget {
   List<Field> _listOfFieldsFromJson(json) {
     json = json as List;
     // Proceed with mapping if json is a list
-    List<Field> fields = (json as List).map((e) {
-      return Field.fromJson(e['fields'] as Map<String, dynamic>);
-    }).toList();
-    return fields;
+    List<Field> fields = (json as List)
+        .map((e) {
+          return Field.fromJson(e['fields'] as Map<String, dynamic>);
+        })
+        .toList();
+        fields.sort((a, b) {
+          if (a.orderNumber == null && b.orderNumber == null) {
+            return 0; // Both are null, so they are equal
+          } else if (a.orderNumber == null) {
+            return 1; // a is null, so it should come after b
+          } else if (b.orderNumber == null) {
+            return -1; // b is null, so it should come after a
+          } else {
+            return a.orderNumber!
+                .compareTo(b.orderNumber!); // Normal comparison
+          }
+        });
+
+          return fields;
   }
+
 }
