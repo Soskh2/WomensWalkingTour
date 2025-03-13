@@ -8,7 +8,7 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     late GoogleMapController mapController;
 
-    final LatLng _center = const LatLng(45.521563, -122.677433);
+    final LatLng _center = const LatLng(41.309, -72.927);
 
     void _onMapCreated(GoogleMapController controller) {
       mapController = controller;
@@ -21,7 +21,7 @@ class MapPage extends StatelessWidget {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
-          zoom: 11.0,
+          zoom: 14.0,
         ),
       ),
     );

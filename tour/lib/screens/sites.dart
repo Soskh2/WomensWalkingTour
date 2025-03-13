@@ -1,14 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart'; // To work with paths
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:dart_airtable/dart_airtable.dart';
 import 'package:tour/widgets/sites.dart';
 import 'package:tour/widgets/visitor_information_button.dart';
 
