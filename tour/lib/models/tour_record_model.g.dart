@@ -15,12 +15,14 @@ TourRecord _$TourRecordFromJson(Map<String, dynamic> json) => TourRecord(
     );
 
 Field _$FieldFromJson(Map<String, dynamic> json) => Field(
-      name: json['Name'] as String?,
+      name: json['Name'] as String,
       orderNumber: (json['order number'] as num?)?.toInt(),
       included: json['included'] as bool?,
       description: json['description'] as String?,
       image: Field._tourImageFromJson(json['image'] as List?),
       audio: Field._audioFromJson(json['audio'] as List?),
+      lat: (json['latitude'] as num?)?.toDouble(),
+      lon: (json['longitude'] as num?)?.toDouble(),
     );
 
 TourImage _$TourImageFromJson(Map<String, dynamic> json) => TourImage(

@@ -25,7 +25,7 @@ class TourRecord {
 
 @JsonSerializable(createToJson: false)
 class Field {
-  final String? name;
+  final String name;
   final int? orderNumber;
   final bool? included;
   final String? description;
@@ -33,6 +33,8 @@ class Field {
   final List<TourImage>? image;
   @JsonKey(fromJson: _audioFromJson, defaultValue: null) // Specify custom deserialization for Audio
   final List<Audio>? audio;
+  final double? lat;
+  final double? lon;
 
   Field({
     required this.name,
@@ -41,6 +43,8 @@ class Field {
     required this.description,
     required this.image,
     required this.audio,
+    required this.lat,
+    required this.lon,
   });
 
   factory Field.fromJson(Map<String, dynamic> json) {
