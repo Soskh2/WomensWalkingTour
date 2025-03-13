@@ -23,6 +23,7 @@ Field _$FieldFromJson(Map<String, dynamic> json) => Field(
       audio: Field._audioFromJson(json['audio'] as List?),
       lat: (json['latitude'] as num?)?.toDouble(),
       lon: (json['longitude'] as num?)?.toDouble(),
+      index: null
     );
 
 TourImage _$TourImageFromJson(Map<String, dynamic> json) => TourImage(

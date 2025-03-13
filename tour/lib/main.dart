@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomePage(onButtonPressed: _onTabChanged),
-      MapPage(),
+      MapPage(siteIndex: 0),
       SitesPage(),
     ];
     return Scaffold(

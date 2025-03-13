@@ -35,6 +35,7 @@ class Field {
   final List<Audio>? audio;
   final double? lat;
   final double? lon;
+  int? index;
 
   Field({
     required this.name,
@@ -45,6 +46,7 @@ class Field {
     required this.audio,
     required this.lat,
     required this.lon,
+    required this.index,
   });
 
   factory Field.fromJson(Map<String, dynamic> json) {

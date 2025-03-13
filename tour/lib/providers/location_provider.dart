@@ -49,6 +49,13 @@ class LocationsProvider with ChangeNotifier {
           return a.orderNumber!.compareTo(b.orderNumber!);
         }
       });
+
+      
+      for (int i = 0; i < _locations.length; i++) {
+        _locations[i].index = i; // Add the 'index' property
+      }
+      
+      
     } catch (e) {
       _errorMessage = 'Failed to load data: $e';
     } finally {
