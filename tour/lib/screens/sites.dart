@@ -6,7 +6,9 @@ import 'package:tour/widgets/sites.dart';
 import 'package:tour/widgets/visitor_information_button.dart';
 
 class SitesPage extends StatefulWidget {
-  const SitesPage({super.key});
+  const SitesPage({super.key, required this.onSiteChanged});
+
+  final Function onSiteChanged;
 
   @override
   _SitesPageState createState() => _SitesPageState();
@@ -61,7 +63,7 @@ class _SitesPageState extends State<SitesPage> {
           ],
         ),
       ),
-      Sites(),
+      Sites(onSiteChanged: widget.onSiteChanged),
     ]);
   }
 }

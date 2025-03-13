@@ -5,11 +5,16 @@ import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/location_provider.dart';
 import 'package:tour/widgets/site_popup.dart'; // Import the provider
 
-class MapPage extends StatelessWidget {
-  const MapPage({super.key, required this.siteIndex});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key, this.siteIndex});
 
-  final int siteIndex;
+  final int? siteIndex;
 
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     late GoogleMapController mapController;
@@ -20,46 +25,53 @@ class MapPage extends StatelessWidget {
       mapController = controller;
     }
 
+
     return Consumer<LocationsProvider>(
       builder: (context, locationsProvider, child) {
         // Fetch the list of locations
         List<Field> locations = locationsProvider.locations;
 
         void _showSiteModal(int index) {
-          // Show the modal with the initial site
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) {
-              return Container(
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  color: Color.fromRGBO(253, 253, 253, 1),
-                  child: SitePopup(
-                    site: locations[index], // Pass the current site
-                    onNext: () {
-                      // If there is a next site, show the next one
-                      if (index + 1 < locations.length) {
-                        index = index + 1;
-                      } else {
-                        index = 0;
-                      }
-                      Navigator.pop(context); // Close the current bottom sheet
-                      _showSiteModal(index);
-                    },
-                    onPrev: () {
-                      // If there is a next site, show the next one
-                      if (index - 1 >= 0) {
-                        index = index - 1;
-                      } else {
-                        index = locations.length - 1;
-                      }
-                      Navigator.pop(context); // Close the current bottom sheet
-                      _showSiteModal(index);
-                    },
-                  ));
-            },
-          );
-        }
+        // Show the modal with the initial site
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) {
+            return Container(
+                height: MediaQuery.of(context).size.height * 0.75,
+                color: Color.fromRGBO(253, 253, 253, 1),
+                child: SitePopup(
+                  site: locations[index], // Pass the current site
+                  onNext: () {
+                    // If there is a next site, show the next one
+                    if (index + 1 < locations.length) {
+                      index = index + 1;
+                    } else {
+                      index = 0;
+                    }
+                    Navigator.pop(context); // Close the current bottom sheet
+                    _showSiteModal(index);
+                  },
+                  onPrev: () {
+                    // If there is a next site, show the next one
+                    if (index - 1 >= 0) {
+                      index = index - 1;
+                    } else {
+                      index = locations.length - 1;
+                    }
+                    Navigator.pop(context); // Close the current bottom sheet
+                    _showSiteModal(index);
+                  },
+                ));
+          },
+        );
+      }
+
+      if (widget.siteIndex != null) {
+        Future.delayed(Duration.zero, () {
+          _showSiteModal(widget.siteIndex!);
+        });
+      }
 
         // Create markers for each location
         Set<Marker> markers = locations

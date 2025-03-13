@@ -63,6 +63,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   int _currentIndex = 0;
+  int? _currentMapIndex;
+
   late Future<List<Field>?> _locationsFuture;
 
   @override
@@ -74,15 +76,24 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onTabChanged(int index) {
     setState(() {
       _currentIndex = index;
+      _currentMapIndex = null;
     });
+  }
+
+  void _onMapSelect(int index) {
+    _onTabChanged(1);
+    setState(() {
+      _currentMapIndex = index;
+    });
+
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomePage(onButtonPressed: _onTabChanged),
-      MapPage(siteIndex: 0),
-      SitesPage(),
+      MapPage(siteIndex: _currentMapIndex,),
+      SitesPage(onSiteChanged: _onMapSelect),
     ];
     return Scaffold(
       appBar: Header(),

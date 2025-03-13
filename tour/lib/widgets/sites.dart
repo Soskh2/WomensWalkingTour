@@ -4,7 +4,9 @@ import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/location_provider.dart'; // Import the provider
 
 class Sites extends StatelessWidget {
-  const Sites({super.key});
+  const Sites({super.key, required this.onSiteChanged});
+
+  final Function onSiteChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class Sites extends StatelessWidget {
                                     padding: const EdgeInsets.only(bottom: 16.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        // Your navigation logic or action on button press
+                                        onSiteChanged(fields[index].index);
                                       },
                                       style: TextButton.styleFrom(
                                         side: BorderSide(
