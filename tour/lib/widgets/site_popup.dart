@@ -6,11 +6,13 @@ class SitePopup extends StatelessWidget {
       {super.key,
       required this.site,
       required this.onNext,
-      required this.onPrev});
+      required this.onPrev,
+      required this.onSiteSelect});
 
   final Field site;
   final Function onNext;
   final Function onPrev;
+  final Function onSiteSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,8 @@ class SitePopup extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Button 1 action
+                  
+                  onSiteSelect(site.index);
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(200, 50),
@@ -100,7 +103,7 @@ class SitePopup extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'Directions',
+                  'Details',
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
@@ -120,7 +123,7 @@ class SitePopup extends StatelessWidget {
                       width: 1, // Border width
                     )),
                 child: const Text(
-                  'Details',
+                  'Directions',
                   style: const TextStyle(fontSize: 20),
                 ),
               ),

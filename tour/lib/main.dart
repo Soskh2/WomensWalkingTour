@@ -6,6 +6,7 @@ import 'package:tour/network/network_enums.dart';
 import 'package:tour/network/network_helper.dart';
 import 'package:tour/network/network_service.dart';
 import 'package:tour/providers/location_provider.dart';
+import 'package:tour/screens/details.dart';
 import 'package:tour/screens/home.dart';
 import 'package:tour/screens/map.dart';
 import 'package:tour/screens/sites.dart';
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _currentIndex = 0;
   int? _currentMapIndex;
+  int _currentSiteIndex = 0;
 
   late Future<List<Field>?> _locationsFuture;
 
@@ -85,15 +87,22 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentMapIndex = index;
     });
+  }
 
+  void _onSiteSelect(int index) {
+    _onTabChanged(3);
+    setState(() {
+      _currentSiteIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomePage(onButtonPressed: _onTabChanged),
-      MapPage(siteIndex: _currentMapIndex,),
+      MapPage(siteIndex: _currentMapIndex, onSiteSelect: _onSiteSelect,),
       SitesPage(onSiteChanged: _onMapSelect),
+      Details(siteIndex: _currentSiteIndex),
     ];
     return Scaffold(
       appBar: Header(),

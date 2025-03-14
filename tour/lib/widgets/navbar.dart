@@ -9,10 +9,14 @@ class NavBar extends StatelessWidget {
 
    @override
   Widget build(BuildContext context) {
+    final int totalNavItems = 3;
+    final int validIndex = (currentIndex >= 0 && currentIndex < totalNavItems) 
+        ? currentIndex 
+        : 0;
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).primaryColor,
-        currentIndex: currentIndex,
+        currentIndex: validIndex,
         onTap: (index) {
           onTabChanged(index);  // Call the callback to notify the parent
         }, 
