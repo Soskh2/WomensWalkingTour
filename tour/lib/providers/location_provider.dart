@@ -52,7 +52,7 @@ class LocationsProvider with ChangeNotifier {
 
       
       for (int i = 0; i < _locations.length; i++) {
-        _locations[i].index = i; // Add the 'index' property
+        _locations[i].index = i;
       }
       
       
@@ -60,7 +60,7 @@ class LocationsProvider with ChangeNotifier {
       _errorMessage = 'Failed to load data: $e';
     } finally {
       _isLoading = false;
-      notifyListeners();  // Notify listeners after data is loaded or error occurs
+      notifyListeners(); 
     }
   }
 

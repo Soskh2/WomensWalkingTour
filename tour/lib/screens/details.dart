@@ -13,30 +13,23 @@ class Details extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocationsProvider>(
       builder: (context, locationsProvider, child) {
-        // Fetch the location based on the siteIndex
         if (locationsProvider.isLoading) {
           return Center(child: CircularProgressIndicator());
         }
-
-        // If there was an error fetching locations, show an error message
         if (locationsProvider.errorMessage != null) {
           return Center(child: Text(locationsProvider.errorMessage!));
         }
-
-        // Fetch the location using the siteIndex
         Field location;
         try {
           location = locationsProvider.locations[siteIndex];
         } catch (e) {
-          return Center(child: Text("Invalid site index."));
+          return Center(child: Text("Invalid site"));
         }
 
         return SingleChildScrollView(
-          // Use SingleChildScrollView to ensure scrolling for long content
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Section
               location.image != null &&
                       location.image!.isNotEmpty &&
                       location.image?[0].url != null
@@ -47,6 +40,7 @@ class Details extends StatelessWidget {
                             'https://via.placeholder.com/600x200', // Use location's image URL or fallback
                         fit: BoxFit.cover,
                         width: double.infinity,
+                        height: 300,
                       ),
                     )
                   : const SizedBox(width: 135),
@@ -107,26 +101,32 @@ class Details extends StatelessWidget {
               ),
 
               // Image Carousel Section
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  height: 250, // Adjust height as needed
-                  child: Swiper(
-                    itemCount: location.image?.length ??
-                        5, // Use location's image URLs if available
-                    itemBuilder: (BuildContext context, int index) {
-                      return Image.network(
-                        location.image?[index].url ??
-                            'https://via.placeholder.com/600x250?text=Image+${index + 1}', // Replace with actual image URLs
-                        fit: BoxFit.cover,
-                      );
-                    },
-                    pagination: SwiperPagination(), // Show page indicators
-                    control:
-                        SwiperControl(), // Optionally, show left/right controls
-                  ),
-                ),
-              ),
+              (location.image?.length ?? 0) >
+                      1 // Only show the carousel if images are more than 1
+                  ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: SizedBox(
+                        height: 250,
+                        child: Swiper(
+                          itemCount: (location.image?.length ?? 0) > 0
+                              ? location.image!.length - 1
+                              : 0, // Adjust itemCount
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image.network(
+                              location.image?[index + 1].url ??
+                                  'https://via.placeholder.com/600x250?text=Image+${index + 1}', // Default image if none available
+                              fit: BoxFit.cover,
+                            );
+                          },
+                          pagination:
+                              SwiperPagination(),
+                          control:
+                              SwiperControl(),
+                        ),
+                      ),
+                    )
+                  : SizedBox
+                      .shrink(), // Show nothing if images are not more than 1
             ],
           ),
         );
