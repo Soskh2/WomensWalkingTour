@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _onBackButton() {
+  void _onBack() {
     if (_navigationStack.isNotEmpty) {
       var index = _navigationStack.removeLast();
       print("Index: $index");
@@ -97,9 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void _onBackButton(int mapIndex) {
+    _onBack();
+    _currentMapIndex = mapIndex;
+  }
+
   Future<void> _onPop() async {
     if (_navigationStack.isNotEmpty) {
-      _onBackButton();
+      _onBack();
     } else {
       // If there are no more items in the stack, close the app
       SystemNavigator.pop();

@@ -33,7 +33,7 @@ class Details extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ElevatedButton.icon(
-                onPressed: () => onBackPressed(),
+                onPressed: () => onBackPressed(location.index),
                 icon: Icon(Icons.arrow_back),
                 label: Text('Back'),
                 style: ElevatedButton.styleFrom(
