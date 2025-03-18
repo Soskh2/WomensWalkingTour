@@ -3,11 +3,13 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/providers/location_provider.dart';
 import 'package:tour/models/tour_record_model.dart';
+import 'package:tour/widgets/audio_player.dart';
 
 class Details extends StatelessWidget {
-  const Details({super.key, required this.siteIndex});
+  const Details({super.key, required this.siteIndex, required this.onBackPressed});
 
   final int siteIndex;
+  final Function onBackPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,16 @@ class Details extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ElevatedButton.icon(
+                onPressed: () => onBackPressed(),
+                icon: Icon(Icons.arrow_back),
+                label: Text('Back'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  iconColor: Theme.of(context).secondaryHeaderColor,
+                  foregroundColor: Theme.of(context).secondaryHeaderColor 
+                ),
+              ),
               location.image != null &&
                       location.image!.isNotEmpty &&
                       location.image?[0].url != null
@@ -58,9 +70,11 @@ class Details extends StatelessWidget {
                 ),
               ),
 
+              // SizedBox(height: 16),
+
               // Audio Section (Only if available)
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,32 +82,14 @@ class Details extends StatelessWidget {
                         location.audio!.isNotEmpty &&
                         location.audio![0].url !=
                             null) // Check if audio URL is available
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Audio Description:',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          // Replace with an actual audio player widget using location.audioUrl
-                          Icon(Icons.play_arrow,
-                              size: 50), // Replace with actual player
-                          SizedBox(height: 8),
-                          Text(
-                            'Click the play button above to listen to the audio file.',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
+                      AudioPlayerWidget(url: location.audio![0].url!),
                   ],
                 ),
               ),
 
               // More Text Section (Long Paragraphs)
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   location.description ?? 'No detailed information available.',
                   style: TextStyle(fontSize: 14),
@@ -118,10 +114,8 @@ class Details extends StatelessWidget {
                               fit: BoxFit.cover,
                             );
                           },
-                          pagination:
-                              SwiperPagination(),
-                          control:
-                              SwiperControl(),
+                          pagination: SwiperPagination(),
+                          control: SwiperControl(),
                         ),
                       ),
                     )

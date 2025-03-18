@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/network/network_enums.dart';
@@ -12,7 +13,6 @@ import 'package:tour/screens/map.dart';
 import 'package:tour/screens/sites.dart';
 import 'package:tour/widgets/header.dart';
 import 'widgets/navbar.dart';
-
 
 void main() {
   runApp(
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(16,33,49, 1),
+        primaryColor: Color.fromRGBO(16, 33, 49, 1),
         secondaryHeaderColor: Color.fromRGBO(2, 53, 108, 1),
         scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
         useMaterial3: true,
@@ -62,10 +62,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentIndex = 0;
   int? _currentMapIndex;
   int _currentSiteIndex = 0;
+
+  List _navigationStack = [];
 
   late Future<List<Field>?> _locationsFuture;
 
@@ -76,18 +77,43 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onTabChanged(int index) {
+    _navigationStack.add(_currentIndex);
+    _changeIndex(index);
+  }
+
+  void _changeIndex(int index) {
+    print("changing index");
     setState(() {
       _currentIndex = index;
       _currentMapIndex = null;
     });
   }
 
-  void _onMapSelect(int index) {
-    _onTabChanged(1);
-    setState(() {
-      _currentMapIndex = index;
-    });
+  void _onBackButton() {
+    if (_navigationStack.isNotEmpty) {
+      var index = _navigationStack.removeLast();
+      print("Index: $index");
+      _changeIndex(index);
+    }
   }
+
+  Future<void> _onPop() async {
+    if (_navigationStack.isNotEmpty) {
+      _onBackButton();
+    } else {
+      // If there are no more items in the stack, close the app
+      SystemNavigator.pop();
+    }
+  }
+
+  // Function to take user to site popup for site of given index
+
+  // void _onMapSelect(int index) {
+  //   _onTabChanged(1);
+  //   setState(() {
+  //     _currentMapIndex = index;
+  //   });
+  // }
 
   void _onSiteSelect(int index) {
     _onTabChanged(3);
@@ -100,61 +126,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomePage(onButtonPressed: _onTabChanged),
-      MapPage(siteIndex: _currentMapIndex, onSiteSelect: _onSiteSelect,),
-      SitesPage(onSiteChanged: _onMapSelect),
-      Details(siteIndex: _currentSiteIndex),
+      MapPage(
+        siteIndex: _currentMapIndex,
+        onSiteSelect: _onSiteSelect,
+      ),
+      SitesPage(onSiteChanged: _onSiteSelect),
+      Details(siteIndex: _currentSiteIndex, onBackPressed: _onBackButton,),
     ];
     return Scaffold(
       appBar: Header(),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: pages,
+      body: SafeArea(
+          child: PopScope(
+              canPop: false,
+              onPopInvokedWithResult: (didPop, result) async {
+                print("Going back");
+                await _onPop();
+              },
+              child: IndexedStack(
+                index: _currentIndex,
+                children: pages,
+              ))),
+      bottomNavigationBar: NavBar(
+        onTabChanged: _onTabChanged,
+        currentIndex: _currentIndex,
       ),
-      bottomNavigationBar: NavBar(onTabChanged: _onTabChanged, currentIndex: _currentIndex,),
     );
-    
-  }
-
-    // Home Page (No data displayed)
-    Future<List<Field>?> getSites() async {
-    Uri uri = Uri.parse(
-        "https://api.airtable.com/v0/appUtdtFoLD8wowBS/Tour?filterByFormula=Included+%3D+TRUE()");
-    Map<String, String> header = {
-      "Authorization":
-          "Bearer patnOVix5R5wsTz8C.92580deda957e6f6da50f28ad387509eefc23c22ab1ed9afe2efed4ef0e33818"
-    };
-    final response = await NetworkService.sendRequest(uri: uri);
-
-    return NetworkHelper.filterResponse(
-        callBack: _listOfFieldsFromJson,
-        response: response,
-        parameterName: CallBackParameterName.fields,
-        onFailureCallbackWithMessage: (errorType, msg) {
-          return null;
-        });
-  }
-
-  List<Field> _listOfFieldsFromJson(json) {
-    json = json as List;
-    List<Field> fields = (json as List)
-        .map((e) {
-          return Field.fromJson(e['fields'] as Map<String, dynamic>);
-        })
-        .toList();
-        // Sort by order number. Null numbers are last
-        fields.sort((a, b) {
-          if (a.orderNumber == null && b.orderNumber == null) {
-            return 0; 
-          } else if (a.orderNumber == null) {
-            return 1;
-          } else if (b.orderNumber == null) {
-            return -1;
-          } else {
-            return a.orderNumber!
-                .compareTo(b.orderNumber!); 
-          }
-        });
-
-          return fields;
   }
 }

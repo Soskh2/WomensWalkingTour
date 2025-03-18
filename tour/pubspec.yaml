@@ -42,10 +42,11 @@ dependencies:
   json_annotation: ^4.9.0
   json_serializable: ^6.9.4
   build_runner: ^2.4.14
-  google_maps_flutter: ^2.10.1
+  google_maps_flutter: ^2.10.1  
   geolocator: ^13.0.2
   provider: ^6.1.2
   flutter_swiper_null_safety: ^1.0.2
+  audioplayers: ^6.4.0
 
 dev_dependencies:
   flutter_test:
