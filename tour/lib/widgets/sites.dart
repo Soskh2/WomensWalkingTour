@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Add the provider import
 import 'package:tour/models/tour_record_model.dart';
-import 'package:tour/providers/location_provider.dart'; // Import the provider
+import 'package:tour/providers/sites_provider.dart'; // Import the provider
 
 class Sites extends StatelessWidget {
   const Sites({super.key, required this.onSiteChanged});
@@ -10,19 +10,19 @@ class Sites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We use a Consumer to listen to changes in LocationsProvider
-    return Consumer<LocationsProvider>(
-      builder: (context, locationsProvider, child) {
-        if (locationsProvider.isLoading) {
+    // We use a Consumer to listen to changes in sitesProvider
+    return Consumer<SitesProvider>(
+      builder: (context, sitesProvider, child) {
+        if (sitesProvider.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (locationsProvider.errorMessage != null) {
-          return Center(child: Text("Error: ${locationsProvider.errorMessage}"));
+        if (sitesProvider.errorMessage != null) {
+          return Center(child: Text("Error: ${sitesProvider.errorMessage}"));
         }
-        if (locationsProvider.locations.isEmpty) {
+        if (sitesProvider.locations.isEmpty) {
           return const Center(child: Text("No Data Available"));
         }
-        final List<Field> fields = locationsProvider.locations;
+        final List<Field> fields = sitesProvider.locations;
 
         return Expanded(
           child: Padding(

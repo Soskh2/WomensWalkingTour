@@ -4,9 +4,9 @@ import 'package:tour/network/network_enums.dart';
 import 'package:tour/network/network_helper.dart';
 import 'package:tour/network/network_service.dart';
 
-class LocationsProvider with ChangeNotifier {
+class SitesProvider with ChangeNotifier {
   List<Field> _locations = [];
-  bool _isLoading = false;
+  bool _isLoading = true;
   String? _errorMessage;
 
   List<Field> get locations => _locations;
@@ -15,10 +15,7 @@ class LocationsProvider with ChangeNotifier {
 
   // Fetch data from API
   Future<void> fetchLocations() async {
-    _isLoading = true;
     _errorMessage = null;
-    notifyListeners();  // Notify listeners that the state has changed
-
     try {
       Uri uri = Uri.parse(
           "https://api.airtable.com/v0/appUtdtFoLD8wowBS/Tour?filterByFormula=Included+%3D+TRUE()");

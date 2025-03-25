@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:provider/provider.dart';
-import 'package:tour/providers/location_provider.dart';
+import 'package:tour/providers/sites_provider.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/widgets/audio_player.dart';
 
@@ -13,17 +13,17 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LocationsProvider>(
-      builder: (context, locationsProvider, child) {
-        if (locationsProvider.isLoading) {
+    return Consumer<SitesProvider>(
+      builder: (context, sitesProvider, child) {
+        if (sitesProvider.isLoading) {
           return Center(child: CircularProgressIndicator());
         }
-        if (locationsProvider.errorMessage != null) {
-          return Center(child: Text(locationsProvider.errorMessage!));
+        if (sitesProvider.errorMessage != null) {
+          return Center(child: Text(sitesProvider.errorMessage!));
         }
         Field location;
         try {
-          location = locationsProvider.locations[siteIndex];
+          location = sitesProvider.locations[siteIndex];
         } catch (e) {
           return Center(child: Text("Invalid site"));
         }

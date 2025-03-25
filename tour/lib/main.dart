@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/models/tour_record_model.dart';
-import 'package:tour/providers/location_provider.dart';
+import 'package:tour/providers/sites_provider.dart';
+import 'package:tour/providers/user_location_provider.dart';
 import 'package:tour/screens/details.dart';
 import 'package:tour/screens/home.dart';
 import 'package:tour/screens/map.dart';
@@ -13,10 +14,11 @@ import 'constants.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => LocationsProvider(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => SitesProvider()),
+      ChangeNotifierProvider(create: (context) => LocationProvider()),
+    ],
+    child: const MyApp(),),
   );
 }
 
@@ -70,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LocationsProvider>(context, listen: false).fetchLocations();
+    Provider.of<SitesProvider>(context, listen: false).fetchLocations();
   }
 
   void _onTabChanged(int index) {
@@ -136,7 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
         onSiteSelect: _onSiteSelect,
       ),
       SitesPage(onSiteChanged: _onSiteSelect),
-      Details(siteIndex: _currentSiteIndex, onBackPressed: _onBackButton,),
+      Details(
+        siteIndex: _currentSiteIndex,
+        onBackPressed: _onBackButton,
+      ),
     ];
     return Scaffold(
       appBar: Header(),
