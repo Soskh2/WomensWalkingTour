@@ -47,6 +47,7 @@ dependencies:
   provider: ^6.1.2
   flutter_swiper_null_safety: ^1.0.2
   audioplayers: ^6.4.0
+  widget_to_marker: ^1.0.6
 
 dev_dependencies:
   flutter_test:

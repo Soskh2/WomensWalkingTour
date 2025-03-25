@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/models/tour_record_model.dart';
-import 'package:tour/network/network_enums.dart';
-import 'package:tour/network/network_helper.dart';
-import 'package:tour/network/network_service.dart';
 import 'package:tour/providers/location_provider.dart';
 import 'package:tour/screens/details.dart';
 import 'package:tour/screens/home.dart';
@@ -13,6 +9,7 @@ import 'package:tour/screens/map.dart';
 import 'package:tour/screens/sites.dart';
 import 'package:tour/widgets/header.dart';
 import 'widgets/navbar.dart';
+import 'constants.dart';
 
 void main() {
   runApp(
@@ -62,9 +59,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+  int _currentIndex = HOME;
   int? _currentMapIndex;
-  int _currentSiteIndex = 0;
+  int _currentSiteIndex = HOME;
 
   List _navigationStack = [];
 
@@ -89,24 +86,27 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _onBack() {
+  int _onBack() {
     if (_navigationStack.isNotEmpty) {
       var index = _navigationStack.removeLast();
       print("Index: $index");
       _changeIndex(index);
+      return index;
     }
+    return -1;
   }
 
   void _onBackButton(int mapIndex) {
-    _onBack();
-    _currentMapIndex = mapIndex;
+    int pageIndex = _onBack();
+    if (pageIndex == MAP) {
+      _currentMapIndex = mapIndex;
+    }
   }
 
   Future<void> _onPop() async {
     if (_navigationStack.isNotEmpty) {
       _onBack();
     } else {
-      // If there are no more items in the stack, close the app
       SystemNavigator.pop();
     }
   }
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   void _onSiteSelect(int index) {
-    _onTabChanged(3);
+    _onTabChanged(DETAILS);
     setState(() {
       _currentSiteIndex = index;
     });
