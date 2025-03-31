@@ -9,34 +9,41 @@ class LocationProvider with ChangeNotifier {
   bool get isTracking => _isTracking;
 
   // Method to start tracking location in real-time
-  void startLocationTracking() async {
+  Future<void> startLocationTracking() async {
     if (_isTracking) return;
 
-    _isTracking = true;
-    notifyListeners();
-
-    // Request location permission and get the current position
+    // Check if location service is enabled
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Handle case when the user has disabled location services
+      // Handle case when location services are disabled
+      print('Location services are disabled');
       return;
     }
 
+    // Check for location permission
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-      // Handle the case where permission is denied
-      return;
+      print("no permission given");
     }
 
-    // Start listening to location updates
-    Geolocator.getPositionStream(
-      locationSettings: LocationSettings(
-        accuracy: LocationAccuracy.high,
-        distanceFilter: 10,) // Minimum distance (in meters) between location updates
-    ).listen((Position position) {
-      _currentPosition = position;
-      notifyListeners(); // Notify listeners to update UI
-    });
+    // If permission is granted, start location tracking
+    else if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      _isTracking = true;
+      notifyListeners();
+
+      // Start listening to location updates
+      Geolocator.getPositionStream(
+        locationSettings: LocationSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 10,
+        ),
+      ).listen((Position position) {
+        _currentPosition = position;
+        notifyListeners(); // Notify listeners to update UI
+      });
+    } else {
+      print('Location permission denied');
+    }
   }
 
   // Method to stop location tracking

@@ -2,8 +2,8 @@ import 'package:widget_to_marker/widget_to_marker.dart';
 import 'package:flutter/material.dart';
 
 
-class TextOnImage extends StatelessWidget {
-  const TextOnImage({
+class MarkerWidget extends StatelessWidget {
+  const MarkerWidget({
     super.key,
     required this.index,
   });
@@ -15,7 +15,7 @@ class TextOnImage extends StatelessWidget {
       children: [
         Image(
           image: const AssetImage(
-            "assets/marker.png",
+            "assets/images/marker.jpg",
           ),
           height: 150,
           width: 150,
