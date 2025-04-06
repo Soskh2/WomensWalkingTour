@@ -43,12 +43,12 @@ class SitePopup extends StatelessWidget {
                     backgroundColor: Colors.white,
                     side: BorderSide(
                       color: Theme.of(context)
-                          .secondaryHeaderColor, // Border color
-                      width: 1, // Border width
+                          .secondaryHeaderColor,
+                      width: 1, 
                     )),
                 child: const Text(
                   '<',
-                  style: const TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 24),
                 ),
               ),
               Text(
@@ -64,24 +64,24 @@ class SitePopup extends StatelessWidget {
                     backgroundColor: Colors.white,
                     side: BorderSide(
                       color: Theme.of(context)
-                          .secondaryHeaderColor, // Border color
-                      width: 1, // Border width
+                          .secondaryHeaderColor, 
+                      width: 1, 
                     )),
                 child: const Text(
                   '>',
-                  style: const TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 24),
                 ),
               ),
             ],
           ),
 
-          const SizedBox(height: 16), // Spacer between buttons and text
+          const SizedBox(height: 16), 
           Text(
             site.name,
             style: const TextStyle(fontSize: 20),
           ),
 
-          const SizedBox(height: 16), // Spacer between text and bottom buttons
+          const SizedBox(height: 16),
           Column(
             children: [
               ElevatedButton(
@@ -98,16 +98,16 @@ class SitePopup extends StatelessWidget {
                   backgroundColor: Colors.white,
                   side: BorderSide(
                     color:
-                        Theme.of(context).secondaryHeaderColor, // Border color
-                    width: 1, // Border width
+                        Theme.of(context).secondaryHeaderColor,
+                    width: 1,
                   ),
                 ),
                 child: const Text(
                   'Details',
-                  style: const TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-              const SizedBox(height: 15), // Spacer between the two buttons
+              const SizedBox(height: 15), 
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -119,12 +119,12 @@ class SitePopup extends StatelessWidget {
                     backgroundColor: Colors.white,
                     side: BorderSide(
                       color: Theme.of(context)
-                          .secondaryHeaderColor, // Border color
-                      width: 1, // Border width
+                          .secondaryHeaderColor,
+                      width: 1, 
                     )),
                 child: const Text(
                   'Directions',
-                  style: const TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
             ],

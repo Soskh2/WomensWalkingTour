@@ -11,10 +11,10 @@ class SitesPage extends StatefulWidget {
   final Function onSiteChanged;
 
   @override
-  _SitesPageState createState() => _SitesPageState();
+  SitesPageState createState() => SitesPageState();
 }
 
-class _SitesPageState extends State<SitesPage> {
+class SitesPageState extends State<SitesPage> {
   late Future<Map<String, dynamic>> locations;
 
   @override

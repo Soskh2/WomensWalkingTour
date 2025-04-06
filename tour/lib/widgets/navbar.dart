@@ -1,4 +1,3 @@
-// lib/widgets/navbar.dart
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget {
@@ -18,7 +17,7 @@ class NavBar extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         currentIndex: validIndex,
         onTap: (index) {
-          onTabChanged(index);  // Call the callback to notify the parent
+          onTabChanged(index); 
         }, 
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,

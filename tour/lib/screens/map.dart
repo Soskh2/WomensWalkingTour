@@ -7,7 +7,7 @@ import 'package:tour/states.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/sites_provider.dart';
 import 'package:tour/providers/user_location_provider.dart';
-import 'package:tour/widgets/site_popup.dart'; // Import the provider
+import 'package:tour/widgets/site_popup.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key, required this.onSiteSelect, this.siteIndex});
@@ -16,10 +16,10 @@ class MapPage extends StatefulWidget {
   final Function onSiteSelect;
 
   @override
-  _MapPageState createState() => _MapPageState();
+  MapPageState createState() => MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
 
   LatLng? _currentLocation;
@@ -32,7 +32,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void dispose() {
-    // Stop location tracking when leaving the page
     Provider.of<LocationProvider>(context, listen: false)
         .stopLocationTracking();
     super.dispose();
@@ -42,7 +41,6 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Consumer2<SitesProvider, LocationProvider>(
         builder: (context, sitesProvider, locationProvider, child) {
-      // Fetch the list of locations from the provider
       List<Field> locations = sitesProvider.locations;
 
       if (locationProvider.currentPosition != null) {
@@ -58,8 +56,6 @@ class _MapPageState extends State<MapPage> {
                 onMapCreated: (GoogleMapController controller) {
                   mapController = controller;
                   _createMarkers(locations);
-                  print("locations: $locations");
-                  print("markers: $_markers");
                 },
                 initialCameraPosition: CameraPosition(
                   target: _currentLocation ?? const LatLng(41.309, -72.927),
@@ -122,20 +118,15 @@ class _MapPageState extends State<MapPage> {
     final PictureRecorder pictureRecorder = PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
 
-    // Create a paint object for the marker's background color (let's use blue)
     final Paint paint = Paint()..color = Color.fromARGB(255, 11, 99, 199);
     final path = Path();
 
-    // Draw the marker shape
     double centerX = width / 2;
-    double centerY = height / 2;
     double radius = width / 2;
 
-    // Move to the starting point of the top half circle
     canvas.drawCircle(Offset(width / 2, height / 2), radius - 2, paint);
     path.moveTo(centerX - 3, radius + 3);
 
-    // Draw left curve from top half circle to the bottom tip
     path.quadraticBezierTo(
       width * 0.05,
       height * 0.5 + 3,
@@ -143,39 +134,32 @@ class _MapPageState extends State<MapPage> {
       height * 1 + 3,
     );
 
-    // Draw right curve from the bottom tip to join the top half circle
     path.quadraticBezierTo(
         width * 0.95, height * 0.5 + 3, centerX + radius, radius + 3);
 
-    // Close the path
     path.close();
 
     canvas.drawPath(path, paint);
 
-    // Create a TextPainter to draw the custom number (or text)
     TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
     painter.text = TextSpan(
-      text: customNum.toString(), // Your custom number or text here
+      text: customNum.toString(),
       style: TextStyle(
           fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.normal),
     );
 
-    // Layout the text
     painter.layout();
 
-    // Calculate the position for the text (center it in the marker)
     painter.paint(
       canvas,
       Offset(
-        (width * 0.5) - (painter.width * 0.5), // Center horizontally
-        ((height - 2) * 0.5) - (painter.height * 0.5), // Center vertically
+        (width * 0.5) - (painter.width * 0.5), 
+        ((height - 2) * 0.5) - (painter.height * 0.5),
       ),
     );
 
-    // Convert the canvas to an image
     final img = await pictureRecorder.endRecording().toImage(width, height);
 
-    // Convert the image to byte data and return
     final data = await img.toByteData(format: ImageByteFormat.png);
     return data!.buffer.asUint8List();
   }
@@ -185,11 +169,9 @@ class _MapPageState extends State<MapPage> {
 
     for (var location in locations) {
       if (location.lat != null && location.lon != null) {
-        // Call the createCustomMarker function to create a marker with text
         Uint8List customIcon =
             await getBytesFromCanvas(location.index! + 1, 30, 30);
 
-        // Create the marker with the custom icon
         markers.add(Marker(
           markerId: MarkerId(location.name),
           position: LatLng(location.lat!, location.lon!),

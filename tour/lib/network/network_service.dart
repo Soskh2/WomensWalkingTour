@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tour/static/keys.dart';
-import 'package:tour/static/static_values.dart';
 
 class NetworkService {
   const NetworkService._();
@@ -27,7 +27,7 @@ class NetworkService {
       final response = await _createRequest(uri: uri, headers: header);
       return response;
     } catch (e) {
-      print("Error - $e");
+      debugPrint("Error - $e");
       return null;
     }
 

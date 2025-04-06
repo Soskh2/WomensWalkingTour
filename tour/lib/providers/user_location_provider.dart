@@ -16,14 +16,14 @@ class LocationProvider with ChangeNotifier {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       // Handle case when location services are disabled
-      print('Location services are disabled');
+      debugPrint('Location services are disabled');
       return;
     }
 
     // Check for location permission
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-      print("no permission given");
+      debugPrint("No location permission");
     }
 
     // If permission is granted, start location tracking
@@ -42,7 +42,7 @@ class LocationProvider with ChangeNotifier {
         notifyListeners(); // Notify listeners to update UI
       });
     } else {
-      print('Location permission denied');
+      debugPrint('Location permission denied');
     }
   }
 

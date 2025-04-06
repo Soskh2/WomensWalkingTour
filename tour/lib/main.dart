@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/sites_provider.dart';
 import 'package:tour/providers/user_location_provider.dart';
 import 'package:tour/screens/details.dart';
@@ -29,11 +28,10 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Women\'s Walking Tour',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(16, 33, 49, 1),
         secondaryHeaderColor: Color.fromRGBO(2, 53, 108, 1),
@@ -41,24 +39,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: "JacquesFrancois",
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -69,9 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int? _currentMapIndex;
   int _currentSiteIndex = StaticValues.HOME;
 
-  List _navigationStack = [];
-
-  late Future<List<Field>?> _locationsFuture;
+  final List _navigationStack = [];
 
   @override
   void initState() {
@@ -85,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _changeIndex(int index) {
-    print("changing index");
     setState(() {
       _currentIndex = index;
       _currentMapIndex = null;
@@ -98,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _onBack() {
     if (_navigationStack.isNotEmpty) {
       var index = _navigationStack.removeLast();
-      print("Index: $index");
       _changeIndex(index);
       return index;
     }
@@ -156,7 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: PopScope(
               canPop: false,
               onPopInvokedWithResult: (didPop, result) async {
-                print("Going back");
                 await _onPop();
               },
               child: IndexedStack(
@@ -171,20 +153,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _checkLocationPermissions() async {
-    print("checking permission");
     var permission = await Geolocator.checkPermission();
-    print("permission after checking: $permission");
+    debugPrint("Current Location Permission: $permission");
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
       // Request permission if it's denied
+      debugPrint("Requesting Permission");
       permission = await Geolocator.requestPermission();
-          print("permission after asking: $permission");
+          debugPrint("Permission after Asking: $permission");
 
     }
 
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always) {
-      // Start location tracking via LocationProvider
       Provider.of<LocationProvider>(context, listen: false)
           .startLocationTracking();
       showLocation = true;

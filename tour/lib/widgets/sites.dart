@@ -67,7 +67,7 @@ class Sites extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 5),
                                     child: Text(
-                                      "${fields[index].index! + 1} - ${fields[index].name!}",
+                                      "${fields[index].index! + 1} - ${fields[index].name}",
                                       style: const TextStyle(fontSize: 16),
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,

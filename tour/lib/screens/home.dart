@@ -24,9 +24,9 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(
                 height:
-                    16), // Adds some space between the title and the divider
+                    16),
             Container(
-              width: 200.0, // Set the desired width for the divider
+              width: 200.0, 
               child: Divider(
                 thickness: 1,
                 color: Theme.of(context).primaryColor,
@@ -34,20 +34,20 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(
                 height:
-                    8), // Adds some space between the divider and the button
+                    8), 
             Text(
                 'This self-guided tour will help you explore the history of women’s contributions to Yale. At each point on the tour, you will be able to read text or listen to audio.'),
             SizedBox(
                 height:
-                    16), // Adds some space between the divider and the button
+                    16), 
             VisitorInformationButton(),
             SizedBox(
-                height: 16), // Adds some space between the button and the cards
+                height: 16), 
 
             // Cards
             Column(
               mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, // Distribute cards evenly
+                  MainAxisAlignment.spaceBetween, 
               children: [
                 GestureDetector(
                   onTap: () {
@@ -62,11 +62,10 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 110,
-                      // padding: EdgeInsets.all(16),
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/images/TourImage.png', // Replace with your image asset
+                            'assets/images/TourImage.png',
                             width: 135,
                             height: 110,
                             fit: BoxFit.cover,
@@ -84,7 +83,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16),
-                // Second Card - Navigate to another route
                 GestureDetector(
                   onTap: () {
                     onButtonPressed(2);
@@ -98,7 +96,6 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 110,
-                      // padding: EdgeInsets.all(16),
                       child: Row(
                         children: [
                           Image.asset(
@@ -120,7 +117,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16),
-                // Third Card - Launch URL
                 GestureDetector(
                   onTap: () {
                     _launchURL();
@@ -134,7 +130,6 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 110,
-                      // padding: EdgeInsets.all(16),
                       child: Row(
                         children: [
                           Image.asset(
