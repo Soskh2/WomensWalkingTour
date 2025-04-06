@@ -45,8 +45,6 @@ class _MapPageState extends State<MapPage> {
       // Fetch the list of locations from the provider
       List<Field> locations = sitesProvider.locations;
 
-      _createMarkers(locations);
-
       if (locationProvider.currentPosition != null) {
         _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
             locationProvider.currentPosition!.longitude);
@@ -55,18 +53,23 @@ class _MapPageState extends State<MapPage> {
       return SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
-        child: GoogleMap(
-          onMapCreated: (GoogleMapController controller) {
-            mapController = controller;
-          },
-          initialCameraPosition: CameraPosition(
-            target: _currentLocation ?? const LatLng(41.309, -72.927),
-            zoom: 16.0,
-          ),
-          markers: _markers,
-          myLocationEnabled: showLocation,
-          myLocationButtonEnabled: true,
-        ),
+        child: locations.isNotEmpty
+            ? GoogleMap(
+                onMapCreated: (GoogleMapController controller) {
+                  mapController = controller;
+                  _createMarkers(locations);
+                  print("locations: $locations");
+                  print("markers: $_markers");
+                },
+                initialCameraPosition: CameraPosition(
+                  target: _currentLocation ?? const LatLng(41.309, -72.927),
+                  zoom: 16.0,
+                ),
+                markers: _markers,
+                myLocationEnabled: showLocation,
+                myLocationButtonEnabled: true,
+              )
+            : Center(child: CircularProgressIndicator()),
       );
     });
   }
