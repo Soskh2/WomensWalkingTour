@@ -172,11 +172,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _checkLocationPermissions() async {
     print("checking permission");
     var permission = await Geolocator.checkPermission();
-    print("permission: $permission");
+    print("permission after checking: $permission");
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
       // Request permission if it's denied
       permission = await Geolocator.requestPermission();
+          print("permission after asking: $permission");
+
     }
 
     if (permission == LocationPermission.whileInUse ||
@@ -184,6 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Start location tracking via LocationProvider
       Provider.of<LocationProvider>(context, listen: false)
           .startLocationTracking();
+      showLocation = true;
     }
   }
 }

@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tour/constants.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/sites_provider.dart';
 import 'package:tour/providers/user_location_provider.dart';
@@ -30,7 +30,6 @@ class _MapPageState extends State<MapPage> {
     super.initState();
   }
 
-
   @override
   void dispose() {
     // Stop location tracking when leaving the page
@@ -42,52 +41,34 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<SitesProvider, LocationProvider>(
-      builder: (context, sitesProvider, locationProvider, child) {
-        // Fetch the list of locations from the provider
-        List<Field> locations = sitesProvider.locations;
+        builder: (context, sitesProvider, locationProvider, child) {
+      // Fetch the list of locations from the provider
+      List<Field> locations = sitesProvider.locations;
 
-        _createMarkers(locations);
+      _createMarkers(locations);
 
-        print("location position: ${locationProvider.currentPosition}");
-        if (locationProvider.currentPosition != null) {
-          _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
-              locationProvider.currentPosition!.longitude);
-        }
+      if (locationProvider.currentPosition != null) {
+        _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
+            locationProvider.currentPosition!.longitude);
+      }
 
-        // Create a marker for the user's current location
-        Set<Marker> userLocationMarker = {};
-        if (_currentLocation != null) {
-          userLocationMarker.add(Marker(
-            markerId: MarkerId('user_location'),
-            position: _currentLocation!,
-            icon:
-                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-          ));
-        }
-
-        return StreamBuilder<Position>(
-            stream: Geolocator.getPositionStream(),
-            builder:
-                (context, snapshot) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: double.infinity,
-                child: GoogleMap(
-                  onMapCreated: (GoogleMapController controller) {
-                    mapController = controller;
-                  },
-                  initialCameraPosition: CameraPosition(
-                    target: _currentLocation ?? const LatLng(41.309, -72.927),
-                    zoom: 16.0,
-                  ),
-                  markers: _markers,
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
-                ),
-              );
-            });
-      },
-    );
+      return SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
+        child: GoogleMap(
+          onMapCreated: (GoogleMapController controller) {
+            mapController = controller;
+          },
+          initialCameraPosition: CameraPosition(
+            target: _currentLocation ?? const LatLng(41.309, -72.927),
+            zoom: 16.0,
+          ),
+          markers: _markers,
+          myLocationEnabled: showLocation,
+          myLocationButtonEnabled: true,
+        ),
+      );
+    });
   }
 
   void _showSiteModal(int index) {
