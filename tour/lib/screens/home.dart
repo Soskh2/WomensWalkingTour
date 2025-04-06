@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             SizedBox(
                 height:
                     16),
-            Container(
+            SizedBox(
               width: 200.0, 
               child: Divider(
                 thickness: 1,
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: 110,
                       child: Row(
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: 110,
                       child: Row(
@@ -127,7 +127,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: 110,
                       child: Row(

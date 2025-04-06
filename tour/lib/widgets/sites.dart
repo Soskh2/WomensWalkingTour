@@ -40,7 +40,7 @@ class Sites extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         height: 130,
                         child: Row(

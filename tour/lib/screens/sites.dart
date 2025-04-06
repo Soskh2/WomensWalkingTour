@@ -42,7 +42,7 @@ class SitesPageState extends State<SitesPage> {
             SizedBox(
                 height:
                     16), // Adds some space between the title and the divider
-            Container(
+            SizedBox(
               width: 200.0, // Set the desired width for the divider
               child: Divider(
                 thickness: 1,

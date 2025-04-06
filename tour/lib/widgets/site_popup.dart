@@ -27,7 +27,8 @@ class SitePopup extends StatelessWidget {
                   site.image?[0].url != null
               ? Image.network(site.image![0].url!,
                   width: 300, height: 200, fit: BoxFit.cover)
-              : const SizedBox(width: 135),
+              : Image.asset('assets/images/placeholder.png',
+                  width: 300, height: 200, fit: BoxFit.cover),
 
           const SizedBox(height: 16),
 

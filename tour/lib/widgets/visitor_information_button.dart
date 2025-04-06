@@ -5,7 +5,7 @@ class VisitorInformationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
               width: double
                   .infinity, // Make button span the full width of the parent
               child: ElevatedButton(
