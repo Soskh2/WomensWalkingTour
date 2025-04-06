@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tour/static/static_values.dart';
 import 'package:tour/widgets/visitor_information_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,10 +11,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0, bottom: 16),
+        padding: const EdgeInsets.only(
+            left: 16.0, top: 16.0, right: 16.0, bottom: 16),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align everything to the left
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Welcome',
@@ -22,32 +23,24 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.normal,
               ),
             ),
+            SizedBox(height: 16),
             SizedBox(
-                height:
-                    16),
-            SizedBox(
-              width: 200.0, 
+              width: 200.0,
               child: Divider(
                 thickness: 1,
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            SizedBox(
-                height:
-                    8), 
+            SizedBox(height: 8),
             Text(
                 'This self-guided tour will help you explore the history of women’s contributions to Yale. At each point on the tour, you will be able to read text or listen to audio.'),
-            SizedBox(
-                height:
-                    16), 
+            SizedBox(height: 16),
             VisitorInformationButton(),
-            SizedBox(
-                height: 16), 
+            SizedBox(height: 16),
 
             // Cards
             Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, 
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -99,7 +92,7 @@ class HomePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/images/Portrait.png', 
+                            'assets/images/Portrait.png',
                             width: 135,
                             height: 110,
                             fit: BoxFit.cover,
@@ -161,8 +154,6 @@ class HomePage extends StatelessWidget {
 }
 
 Future<void> _launchURL() async {
-  Uri uri = Uri.parse("https://wff.yale.edu/");
+  Uri uri = Uri.parse(StaticValues.wffUrl);
   await launchUrl(uri);
 }
-
-

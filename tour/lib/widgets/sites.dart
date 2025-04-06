@@ -10,7 +10,6 @@ class Sites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We use a Consumer to listen to changes in sitesProvider
     return Consumer<SitesProvider>(
       builder: (context, sitesProvider, child) {
         if (sitesProvider.isLoading) {
@@ -48,16 +47,10 @@ class Sites extends StatelessWidget {
                             fields[index].image != null &&
                                     fields[index].image!.isNotEmpty &&
                                     fields[index].image?[0].url != null
-                                ? Image.network(
-                                    fields[index].image![0].url!,
-                                    width: 135,
-                                    height: 130,
-                                    fit: BoxFit.cover)
-                                : Image.asset(
-                                    'assets/images/placeholder.png',
-                                    width: 135,
-                                    height: 130,
-                                    fit: BoxFit.cover),
+                                ? Image.network(fields[index].image![0].url!,
+                                    width: 135, height: 130, fit: BoxFit.cover)
+                                : Image.asset('assets/images/placeholder.png',
+                                    width: 135, height: 130, fit: BoxFit.cover),
                             const SizedBox(width: 16),
                             Expanded(
                               child: Column(
@@ -76,7 +69,8 @@ class Sites extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: 16.0),
+                                    padding:
+                                        const EdgeInsets.only(bottom: 16.0),
                                     child: TextButton(
                                       onPressed: () {
                                         onSiteChanged(fields[index].index);
@@ -84,14 +78,14 @@ class Sites extends StatelessWidget {
                                       style: TextButton.styleFrom(
                                         side: BorderSide(
                                           color: Theme.of(context)
-                                              .secondaryHeaderColor, // Border color
+                                              .secondaryHeaderColor,
                                         ),
                                       ),
                                       child: Text(
                                         'View Page >',
                                         style: TextStyle(
                                           color: Theme.of(context)
-                                              .secondaryHeaderColor, // Text color
+                                              .secondaryHeaderColor,
                                         ),
                                       ),
                                     ),

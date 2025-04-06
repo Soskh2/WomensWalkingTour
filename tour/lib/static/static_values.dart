@@ -6,6 +6,8 @@ class StaticValues {
   static const airtableUrl = "https://api.airtable.com/v0/appUtdtFoLD8wowBS";
   static const airtableFilter = "/Tour?filterByFormula=Included+%3D+TRUE()";
 
+  static const wffUrl = "https://wff.yale.edu/";
+
 
   static const int HOME = 0;
   static const int MAP = 1;

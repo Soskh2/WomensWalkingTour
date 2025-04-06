@@ -6,7 +6,8 @@ import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/widgets/audio_player.dart';
 
 class Details extends StatelessWidget {
-  const Details({super.key, required this.siteIndex, required this.onBackPressed});
+  const Details(
+      {super.key, required this.siteIndex, required this.onBackPressed});
 
   final int siteIndex;
   final Function onBackPressed;
@@ -37,10 +38,9 @@ class Details extends StatelessWidget {
                 icon: Icon(Icons.arrow_back),
                 label: Text('Back'),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  iconColor: Theme.of(context).secondaryHeaderColor,
-                  foregroundColor: Theme.of(context).secondaryHeaderColor 
-                ),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    iconColor: Theme.of(context).secondaryHeaderColor,
+                    foregroundColor: Theme.of(context).secondaryHeaderColor),
               ),
               location.image != null &&
                       location.image!.isNotEmpty &&
@@ -49,7 +49,7 @@ class Details extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Image.network(
                         location.image![0].url ??
-                            'https://via.placeholder.com/600x200', // Use location's image URL or fallback
+                            'https://via.placeholder.com/600x200',
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 300,
@@ -57,20 +57,16 @@ class Details extends StatelessWidget {
                     )
                   : const SizedBox(width: 135),
 
-              // Some Text Below Image
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Align(
-                  alignment:
-                      Alignment.center, // This centers the text horizontally
+                  alignment: Alignment.center,
                   child: Text(
                     "${location.index! + 1} - ${location.name}",
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
               ),
-
-              // SizedBox(height: 16),
 
               // Audio Section (Only if available)
               Padding(
@@ -80,14 +76,12 @@ class Details extends StatelessWidget {
                   children: [
                     if (location.audio != null &&
                         location.audio!.isNotEmpty &&
-                        location.audio![0].url !=
-                            null) // Check if audio URL is available
+                        location.audio![0].url != null)
                       AudioPlayerWidget(url: location.audio![0].url!),
                   ],
                 ),
               ),
 
-              // More Text Section (Long Paragraphs)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -96,7 +90,6 @@ class Details extends StatelessWidget {
                 ),
               ),
 
-              // Image Carousel Section
               (location.image?.length ?? 0) >
                       1 // Only show the carousel if images are more than 1
                   ? Padding(
@@ -106,21 +99,21 @@ class Details extends StatelessWidget {
                         child: Swiper(
                           itemCount: (location.image?.length ?? 0) > 0
                               ? location.image!.length - 1
-                              : 0, // Adjust itemCount
+                              : 0,
                           itemBuilder: (BuildContext context, int index) {
-                            return Image.network(
-                              location.image?[index + 1].url ??
-                                  'https://via.placeholder.com/600x250?text=Image+${index + 1}', // Default image if none available
-                              fit: BoxFit.cover,
-                            );
+                            return location.image?[index + 1].url != null
+                                ? Image.network(
+                                    location.image![index + 1].url!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset('assets/images/placeholder.png');
                           },
                           pagination: SwiperPagination(),
                           control: SwiperControl(),
                         ),
                       ),
                     )
-                  : SizedBox
-                      .shrink(), // Show nothing if images are not more than 1
+                  : SizedBox.shrink(),
             ],
           ),
         );

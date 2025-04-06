@@ -15,7 +15,6 @@ class TourRecord {
   });
 
   factory TourRecord.fromJson(Map<String, dynamic> json) {
-    // print('TourRecord fromJson: $json');
     return _$TourRecordFromJson(json);
   }
 }
@@ -27,9 +26,9 @@ class Field {
   final int? orderNumber;
   final bool? included;
   final String? description;
-  @JsonKey(fromJson: _tourImageFromJson, defaultValue: null) // Specify custom deserialization for Image
+  @JsonKey(fromJson: _tourImageFromJson, defaultValue: null)
   final List<TourImage>? image;
-  @JsonKey(fromJson: _audioFromJson, defaultValue: null) // Specify custom deserialization for Audio
+  @JsonKey(fromJson: _audioFromJson, defaultValue: null)
   final List<Audio>? audio;
   final double? lat;
   final double? lon;
@@ -48,24 +47,23 @@ class Field {
   });
 
   factory Field.fromJson(Map<String, dynamic> json) {
-    // print('Field fromJson: $json'); // Debug the entire Field JSON
     return _$FieldFromJson(json);
   }
 
    // Custom deserialization function for Image
   static List<TourImage>? _tourImageFromJson(List<dynamic>? jsonList) {
-    if (jsonList == null) return null; // Return null if list is empty or null
+    if (jsonList == null) return null; 
     return jsonList
         .map((jsonItem) => TourImage.fromJson(jsonItem as Map<String, dynamic>))
-        .toList(); // Mapping the list
+        .toList(); 
   }
 
   // Custom deserialization function for Audio
   static List<Audio>? _audioFromJson(List<dynamic>? jsonList) {
-    if (jsonList == null) return null; // Return null if list is empty or null
+    if (jsonList == null) return null; 
     return jsonList
         .map((jsonItem) => Audio.fromJson(jsonItem as Map<String, dynamic>))
-        .toList(); // Mapping the list
+        .toList(); 
   }
 }
 
@@ -92,7 +90,6 @@ class TourImage {
   });
 
   factory TourImage.fromJson(Map<String, dynamic> json) {
-    // print('TourImage fromJson: $json');
     return _$TourImageFromJson(json);
   }
 }
@@ -110,7 +107,6 @@ class Thumbnails {
   });
 
   factory Thumbnails.fromJson(Map<String, dynamic> json) {
-    // print('Thumbnails fromJson: $json');
     return _$ThumbnailsFromJson(json);
   }
 }
@@ -128,7 +124,6 @@ class Thumbnail {
   });
   
   factory Thumbnail.fromJson(Map<String, dynamic> json) {
-    // print('Thumbnail fromJson: $json');
     return _$ThumbnailFromJson(json);
   }
 }
@@ -151,7 +146,6 @@ class Audio {
   });
   
   factory Audio.fromJson(Map<String, dynamic> json) {
-    // print('Audio fromJson: $json');
     return _$AudioFromJson(json);
   }
 }

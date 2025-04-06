@@ -26,14 +26,12 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     _audioPlayer = AudioPlayer();
     _audioPlayer.setReleaseMode(ReleaseMode.stop);
 
-    // Listen for position changes
     _positionSubscription = _audioPlayer.onPositionChanged.listen((position) {
       setState(() {
         currentPosition = position.inSeconds.toDouble();
       });
     });
 
-    // Listen for duration change
     _durationSubscription = _audioPlayer.onDurationChanged.listen((d) {
       setState(() {
         duration = d.inSeconds.toDouble();
@@ -84,7 +82,6 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Format time display
     String formatTime(double timeInSeconds) {
       int minutes = (timeInSeconds / 60).floor();
       int seconds = (timeInSeconds % 60).toInt();
@@ -93,7 +90,6 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
     return Column(
       children: [
-        // Audio Control Bar
         Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(children: [
@@ -101,7 +97,7 @@ class AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   child: Text(
                 'Listen Below:',
                 style: TextStyle(
-                  fontSize: 16, // Set the font size to 16
+                  fontSize: 16, 
                 ),
               )),
               Row(

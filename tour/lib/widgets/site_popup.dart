@@ -29,9 +29,7 @@ class SitePopup extends StatelessWidget {
                   width: 300, height: 200, fit: BoxFit.cover)
               : Image.asset('assets/images/placeholder.png',
                   width: 300, height: 200, fit: BoxFit.cover),
-
           const SizedBox(height: 16),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -43,9 +41,8 @@ class SitePopup extends StatelessWidget {
                     foregroundColor: Theme.of(context).secondaryHeaderColor,
                     backgroundColor: Colors.white,
                     side: BorderSide(
-                      color: Theme.of(context)
-                          .secondaryHeaderColor,
-                      width: 1, 
+                      color: Theme.of(context).secondaryHeaderColor,
+                      width: 1,
                     )),
                 child: const Text(
                   '<',
@@ -64,9 +61,8 @@ class SitePopup extends StatelessWidget {
                     foregroundColor: Theme.of(context).secondaryHeaderColor,
                     backgroundColor: Colors.white,
                     side: BorderSide(
-                      color: Theme.of(context)
-                          .secondaryHeaderColor, 
-                      width: 1, 
+                      color: Theme.of(context).secondaryHeaderColor,
+                      width: 1,
                     )),
                 child: const Text(
                   '>',
@@ -75,19 +71,16 @@ class SitePopup extends StatelessWidget {
               ),
             ],
           ),
-
-          const SizedBox(height: 16), 
+          const SizedBox(height: 16),
           Text(
             site.name,
             style: const TextStyle(fontSize: 20),
           ),
-
           const SizedBox(height: 16),
           Column(
             children: [
               ElevatedButton(
                 onPressed: () {
-                  
                   onSiteSelect(site.index);
                 },
                 style: ElevatedButton.styleFrom(
@@ -98,8 +91,7 @@ class SitePopup extends StatelessWidget {
                   foregroundColor: Theme.of(context).secondaryHeaderColor,
                   backgroundColor: Colors.white,
                   side: BorderSide(
-                    color:
-                        Theme.of(context).secondaryHeaderColor,
+                    color: Theme.of(context).secondaryHeaderColor,
                     width: 1,
                   ),
                 ),
@@ -108,7 +100,7 @@ class SitePopup extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              const SizedBox(height: 15), 
+              const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -119,9 +111,8 @@ class SitePopup extends StatelessWidget {
                     foregroundColor: Theme.of(context).secondaryHeaderColor,
                     backgroundColor: Colors.white,
                     side: BorderSide(
-                      color: Theme.of(context)
-                          .secondaryHeaderColor,
-                      width: 1, 
+                      color: Theme.of(context).secondaryHeaderColor,
+                      width: 1,
                     )),
                 child: const Text(
                   'Directions',

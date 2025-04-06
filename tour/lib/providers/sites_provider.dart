@@ -3,7 +3,7 @@ import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/network/network_enums.dart';
 import 'package:tour/network/network_helper.dart';
 import 'package:tour/network/network_service.dart';
-import 'package:tour/static/keys.dart';
+import 'package:tour/static/static_values.dart';
 
 class SitesProvider with ChangeNotifier {
   List<Field> _locations = [];
@@ -19,11 +19,8 @@ class SitesProvider with ChangeNotifier {
     _errorMessage = null;
     try {
       Uri uri = Uri.parse(
-          "https://api.airtable.com/v0/appUtdtFoLD8wowBS/Tour?filterByFormula=Included+%3D+TRUE()");
-      Map<String, String> header = {
-        "Authorization":
-            "Bearer ${Keys.airtable}"
-      };
+          "${StaticValues.airtableUrl}${StaticValues.airtableFilter}");
+
       final response = await NetworkService.sendRequest(uri: uri);
 
       _locations = NetworkHelper.filterResponse(
@@ -64,7 +61,7 @@ class SitesProvider with ChangeNotifier {
 
   List<Field> _listOfFieldsFromJson(json) {
     json = json as List;
-    List<Field> fields = (json as List).map((e) {
+    List<Field> fields = (json).map((e) {
       return Field.fromJson(e['fields'] as Map<String, dynamic>);
     }).toList();
     return fields;
