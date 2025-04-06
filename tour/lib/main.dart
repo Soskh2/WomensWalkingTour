@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/sites_provider.dart';
@@ -14,11 +15,13 @@ import 'constants.dart';
 
 void main() {
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => SitesProvider()),
-      ChangeNotifierProvider(create: (context) => LocationProvider()),
-    ],
-    child: const MyApp(),),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SitesProvider()),
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -86,6 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentIndex = index;
       _currentMapIndex = null;
     });
+    if (index == MAP) {
+      _checkLocationPermissions();
+    }
   }
 
   int _onBack() {
@@ -161,5 +167,23 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _currentIndex,
       ),
     );
+  }
+
+  void _checkLocationPermissions() async {
+    print("checking permission");
+    var permission = await Geolocator.checkPermission();
+    print("permission: $permission");
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      // Request permission if it's denied
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always) {
+      // Start location tracking via LocationProvider
+      Provider.of<LocationProvider>(context, listen: false)
+          .startLocationTracking();
+    }
   }
 }

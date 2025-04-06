@@ -22,56 +22,14 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
 
-  // Variable to store the current location of the user
   LatLng? _currentLocation;
   Set<Marker> _markers = {};
 
   @override
   void initState() {
     super.initState();
-    // Start location tracking after checking for permissions
-    _checkLocationPermission();
   }
 
-  Future<void> _checkLocationPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    print("permission: $permission");
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      // Request permission if it's denied
-      print("requesting permission");
-      permission = await Geolocator.requestPermission();
-    }
-
-    // If permission granted, start tracking the user's location
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      // Start location tracking via LocationProvider
-      Provider.of<LocationProvider>(context, listen: false)
-          .startLocationTracking();
-      setState(() {
-        mapController.animateCamera(CameraUpdate.newLatLng(_currentLocation!));
-      });
-    } else {
-      // Notify user if permission is denied
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Permission Denied"),
-          content:
-              Text("Location permission is required to track your location."),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("OK"),
-            ),
-          ],
-        ),
-      );
-    }
-  }
 
   @override
   void dispose() {
@@ -90,28 +48,11 @@ class _MapPageState extends State<MapPage> {
 
         _createMarkers(locations);
 
+        print("location position: ${locationProvider.currentPosition}");
         if (locationProvider.currentPosition != null) {
           _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
               locationProvider.currentPosition!.longitude);
         }
-
-        // Create markers for each location
-        // Set<Marker> markers = locations
-        //     .map((location) {
-        //       // Ensure latitude and longitude are available
-        //       if (location.lat != null && location.lon != null) {
-        //         return Marker(
-        //             markerId: MarkerId(location.name),
-        //             position: LatLng(location.lat!, location.lon!),
-        //             icon: BitmapDescriptor.bytes(getBytesFromCanvas(location!.index, 150, 150)),
-        //             onTap: () {
-        //               _showSiteModal(location.index!);
-        //             });
-        //       }
-        //       return null;
-        //     })
-        //     .whereType<Marker>()
-        //     .toSet(); // Filter out any null markers
 
         // Create a marker for the user's current location
         Set<Marker> userLocationMarker = {};
@@ -124,35 +65,31 @@ class _MapPageState extends State<MapPage> {
           ));
         }
 
-        return SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
-          child: GoogleMap(
-            onMapCreated: (GoogleMapController controller) {
-              mapController = controller;
-
-              if (_currentLocation != null) {
-                print("location: $_currentLocation");
-                mapController
-                    .animateCamera(CameraUpdate.newLatLng(_currentLocation!));
-              }
-            },
-            initialCameraPosition: CameraPosition(
-              target: _currentLocation ??
-                  const LatLng(41.309,
-                      -72.927), // Default to a center if location is not available
-              zoom: 16.0,
-            ),
-            markers: _markers, // Set markers on the map
-            myLocationEnabled: true, // Enable the "my location" button
-            myLocationButtonEnabled: true, // Show the "my location" button
-          ),
-        );
+        return StreamBuilder<Position>(
+            stream: Geolocator.getPositionStream(),
+            builder:
+                (context, snapshot) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                child: GoogleMap(
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController = controller;
+                  },
+                  initialCameraPosition: CameraPosition(
+                    target: _currentLocation ?? const LatLng(41.309, -72.927),
+                    zoom: 16.0,
+                  ),
+                  markers: _markers,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                ),
+              );
+            });
       },
     );
   }
 
-  // Function to show the site modal
   void _showSiteModal(int index) {
     showModalBottomSheet(
       context: context,
@@ -163,7 +100,7 @@ class _MapPageState extends State<MapPage> {
           color: const Color.fromRGBO(253, 253, 253, 1),
           child: SitePopup(
             site: Provider.of<SitesProvider>(context, listen: false)
-                .locations[index], // Pass the current site
+                .locations[index],
             onNext: () {
               // Navigate to next site
               int nextIndex = (index + 1) %
@@ -200,7 +137,6 @@ class _MapPageState extends State<MapPage> {
       int customNum, int width, int height) async {
     final PictureRecorder pictureRecorder = PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
-    
 
     // Create a paint object for the marker's background color (let's use blue)
     final Paint paint = Paint()..color = Color.fromARGB(255, 11, 99, 199);
@@ -225,11 +161,7 @@ class _MapPageState extends State<MapPage> {
 
     // Draw right curve from the bottom tip to join the top half circle
     path.quadraticBezierTo(
-      width * 0.95,
-      height * 0.5 + 3,
-      centerX + radius,
-      radius + 3
-    );
+        width * 0.95, height * 0.5 + 3, centerX + radius, radius + 3);
 
     // Close the path
     path.close();
@@ -240,7 +172,8 @@ class _MapPageState extends State<MapPage> {
     TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
     painter.text = TextSpan(
       text: customNum.toString(), // Your custom number or text here
-      style: TextStyle(fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.normal),
+      style: TextStyle(
+          fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.normal),
     );
 
     // Layout the text
