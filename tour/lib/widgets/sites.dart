@@ -53,7 +53,11 @@ class Sites extends StatelessWidget {
                                     width: 135,
                                     height: 130,
                                     fit: BoxFit.cover)
-                                : const SizedBox(width: 135),
+                                : Image.asset(
+                                    'assets/images/placeholder.png',
+                                    width: 135,
+                                    height: 130,
+                                    fit: BoxFit.cover),
                             const SizedBox(width: 16),
                             Expanded(
                               child: Column(

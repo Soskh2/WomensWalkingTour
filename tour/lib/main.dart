@@ -9,9 +9,10 @@ import 'package:tour/screens/details.dart';
 import 'package:tour/screens/home.dart';
 import 'package:tour/screens/map.dart';
 import 'package:tour/screens/sites.dart';
+import 'package:tour/static/static_values.dart';
 import 'package:tour/widgets/header.dart';
 import 'widgets/navbar.dart';
-import 'constants.dart';
+import 'states.dart';
 
 void main() {
   runApp(
@@ -64,9 +65,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = HOME;
+  int _currentIndex = StaticValues.HOME;
   int? _currentMapIndex;
-  int _currentSiteIndex = HOME;
+  int _currentSiteIndex = StaticValues.HOME;
 
   List _navigationStack = [];
 
@@ -89,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentIndex = index;
       _currentMapIndex = null;
     });
-    if (index == MAP) {
+    if (index == StaticValues.MAP) {
       _checkLocationPermissions();
     }
   }
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onBackButton(int mapIndex) {
     int pageIndex = _onBack();
-    if (pageIndex == MAP) {
+    if (pageIndex == StaticValues.MAP) {
       _currentMapIndex = mapIndex;
     }
   }
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   void _onSiteSelect(int index) {
-    _onTabChanged(DETAILS);
+    _onTabChanged(StaticValues.DETAILS);
     setState(() {
       _currentSiteIndex = index;
     });

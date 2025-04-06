@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tour/constants.dart';
+import 'package:tour/states.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/providers/sites_provider.dart';
 import 'package:tour/providers/user_location_provider.dart';

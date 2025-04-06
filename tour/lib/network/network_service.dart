@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:tour/static/keys.dart';
 import 'package:tour/static/static_values.dart';
 
 class NetworkService {
@@ -6,7 +7,7 @@ class NetworkService {
 
   static Map<String, String> _getHeaders() => {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ${StaticValues.airtableKey}'
+    'Authorization': 'Bearer ${Keys.airtable}'
   };
 
   static Future<http.Response> _createRequest({
