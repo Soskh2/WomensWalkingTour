@@ -76,7 +76,7 @@ class SitePopup extends StatelessWidget {
             site.name,
             style: const TextStyle(fontSize: 20),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Column(
             children: [
               ElevatedButton(
@@ -97,25 +97,6 @@ class SitePopup extends StatelessWidget {
                 ),
                 child: const Text(
                   'Details',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(200, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                    foregroundColor: Theme.of(context).secondaryHeaderColor,
-                    backgroundColor: Colors.white,
-                    side: BorderSide(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      width: 1,
-                    )),
-                child: const Text(
-                  'Directions',
                   style: TextStyle(fontSize: 20),
                 ),
               ),

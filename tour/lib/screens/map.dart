@@ -76,7 +76,7 @@ class MapPageState extends State<MapPage> {
       isScrollControlled: true,
       builder: (context) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.75,
+          height: MediaQuery.of(context).size.height * 0.66,
           color: const Color.fromRGBO(253, 253, 253, 1),
           child: SitePopup(
             site: Provider.of<SitesProvider>(context, listen: false)
