@@ -1,8 +1,7 @@
 import Flutter
 import UIKit
 import GoogleMaps
-import "package:tour/static/keys.dart";
-
+import flutter_config
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -12,7 +11,7 @@ import "package:tour/static/keys.dart";
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
 
-    GMSServices.provideAPIKey(Keys.googleMaps)
+    GMSServices.provideAPIKey(FlutterConfigPlugin.env(for: "GOOGLE_MAPS_KEY"))
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

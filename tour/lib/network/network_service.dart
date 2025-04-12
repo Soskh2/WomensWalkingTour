@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:tour/static/keys.dart';
 
 class NetworkService {
-  const NetworkService._();
+  NetworkService._();
 
   static Map<String, String> _getHeaders() => {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ${Keys.airtable}'
+    'Authorization': 'Bearer ${FlutterConfig.get('AIRTABLE_KEY')}'
   };
 
   static Future<http.Response> _createRequest({

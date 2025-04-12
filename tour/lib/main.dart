@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/providers/sites_provider.dart';
@@ -13,7 +14,10 @@ import 'package:tour/widgets/header.dart';
 import 'widgets/navbar.dart';
 import 'states.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
+  
   runApp(
     MultiProvider(
       providers: [

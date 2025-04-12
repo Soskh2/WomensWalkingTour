@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/network/network_enums.dart';
 import 'package:tour/network/network_helper.dart';
 import 'package:tour/network/network_service.dart';
-import 'package:tour/static/static_values.dart';
 
 class SitesProvider with ChangeNotifier {
   List<Field> _locations = [];
@@ -19,7 +19,7 @@ class SitesProvider with ChangeNotifier {
     _errorMessage = null;
     try {
       Uri uri = Uri.parse(
-          "${StaticValues.airtableUrl}${StaticValues.airtableFilter}");
+          "${FlutterConfig.get('AIRTABLE_BASE_URL')}");
 
       final response = await NetworkService.sendRequest(uri: uri);
 

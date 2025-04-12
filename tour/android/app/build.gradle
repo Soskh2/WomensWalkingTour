@@ -5,6 +5,8 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+
 // dependencies {
 //     implementation 'com.google.android.gms:play-services-vision:20.2'
 // }
@@ -33,7 +35,6 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        resValue "string", "google_maps_api_key", project.google_maps_api_key
     }
 
     buildTypes {
@@ -42,6 +43,10 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
