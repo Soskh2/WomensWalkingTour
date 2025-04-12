@@ -313,10 +313,11 @@ packages:
   flutter_config:
     dependency: "direct main"
     description:
-      name: flutter_config
-      sha256: a07e6156bb6e776e29c6357be433155acda87d1dab1a3f787a72091a1b71ffbf
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: d7c3cf014e9651e0d6c75596fd44cbc6ab42f8a8
+      url: "https://github.com/dev-mahmoud-elshenawy/flutter_config-flutter3.29.0-fix"
+    source: git
     version: "2.0.2"
   flutter_launcher_icons:
     dependency: "direct main"

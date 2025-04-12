@@ -49,7 +49,9 @@ dependencies:
   audioplayers: ^6.4.0
   widget_to_marker: ^1.0.6
   flutter_launcher_icons: ^0.14.3
-  flutter_config: ^2.0.2
+  flutter_config:
+    git:
+      url: https://github.com/dev-mahmoud-elshenawy/flutter_config-flutter3.29.0-fix
 
 dev_dependencies:
   flutter_test:
