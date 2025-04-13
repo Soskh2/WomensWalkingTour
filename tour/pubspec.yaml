@@ -54,6 +54,7 @@ dependencies:
       url: https://github.com/dev-mahmoud-elshenawy/flutter_config-flutter3.29.0-fix
   flutter_dotenv: ^5.2.1
   dotenv: ^4.2.0
+  google_maps_flutter_web: ^0.5.12
 
 dev_dependencies:
   flutter_test:

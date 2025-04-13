@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -44,9 +45,13 @@ class MapPageState extends State<MapPage> {
       List<Field> locations = sitesProvider.locations;
 
       if (locationProvider.currentPosition != null) {
+        // print(locationProvider.currentPosition);
         _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
             locationProvider.currentPosition!.longitude);
+
+  
       }
+
 
       return SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -182,6 +187,18 @@ class MapPageState extends State<MapPage> {
         ));
       }
     }
+
+    // myLocationEnabled not supported on the web
+    if (kIsWeb && _currentLocation != null) {
+    markers.add(
+      Marker(
+        markerId: MarkerId('user_location'),
+        position: _currentLocation!,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+      ),
+    );
+  }
+    
 
     setState(() {
       _markers = markers;
