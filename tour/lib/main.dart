@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:tour/providers/sites_provider.dart';
@@ -15,9 +17,13 @@ import 'widgets/navbar.dart';
 import 'states.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
-  await FlutterConfig.loadEnvVariables();
-  
+  if (kIsWeb) {
+    await dotenv.load(fileName: "dotenv"); 
+  } else {
+    WidgetsFlutterBinding.ensureInitialized();
+    await FlutterConfig.loadEnvVariables();
+  }
+
   runApp(
     MultiProvider(
       providers: [
@@ -164,8 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Request permission if it's denied
       debugPrint("Requesting Permission");
       permission = await Geolocator.requestPermission();
-          debugPrint("Permission after Asking: $permission");
-
+      debugPrint("Permission after Asking: $permission");
     }
 
     if (permission == LocationPermission.whileInUse ||

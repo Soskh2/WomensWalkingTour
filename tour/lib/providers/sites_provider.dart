@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tour/models/tour_record_model.dart';
 import 'package:tour/network/network_enums.dart';
 import 'package:tour/network/network_helper.dart';
@@ -18,8 +20,9 @@ class SitesProvider with ChangeNotifier {
   Future<void> fetchLocations() async {
     _errorMessage = null;
     try {
-      Uri uri = Uri.parse(
-          "${FlutterConfig.get('AIRTABLE_BASE_URL')}");
+      Uri uri = kIsWeb
+          ? Uri.parse("${dotenv.env['AIRTABLE_BASE_URL']}")
+          : Uri.parse("${FlutterConfig.get('AIRTABLE_BASE_URL')}");
 
       final response = await NetworkService.sendRequest(uri: uri);
 
@@ -45,17 +48,14 @@ class SitesProvider with ChangeNotifier {
         }
       });
 
-      
       for (int i = 0; i < _locations.length; i++) {
         _locations[i].index = i;
       }
-      
-      
     } catch (e) {
       _errorMessage = 'Failed to load data: $e';
     } finally {
       _isLoading = false;
-      notifyListeners(); 
+      notifyListeners();
     }
   }
 
