@@ -58,13 +58,13 @@ class Sites extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 5),
+                                    padding: const EdgeInsets.only(right: 10),
                                     child: Text(
                                       "${fields[index].index! + 1} - ${fields[index].name}",
                                       style: const TextStyle(fontSize: 16),
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
+                                      maxLines: 3,
                                     ),
                                   ),
                                   const SizedBox(height: 4),
