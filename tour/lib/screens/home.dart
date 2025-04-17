@@ -65,9 +65,12 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(width: 16),
                           Expanded(
-                            child: Text(
-                              'Women at Yale: A Walking Tour',
-                              style: TextStyle(fontSize: 16),
+                            child: Container(
+                              padding: EdgeInsets.only(right: 5.0),
+                              child: Text(
+                                'Women at Yale: A Walking Tour',
+                                style: TextStyle(fontSize: 15),
+                              ),
                             ),
                           ),
                         ],
@@ -101,7 +104,7 @@ class HomePage extends StatelessWidget {
                           Expanded(
                             child: Text(
                               'Tour Sites',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 15),
                             ),
                           ),
                         ],
@@ -135,7 +138,7 @@ class HomePage extends StatelessWidget {
                           Expanded(
                             child: Text(
                               'Women\'s Faculty Forum',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 15),
                             ),
                           ),
                         ],

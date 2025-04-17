@@ -33,14 +33,19 @@ class Details extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ElevatedButton.icon(
-                onPressed: () => onBackPressed(siteIndex),
-                icon: Icon(Icons.arrow_back),
-                label: Text('Back'),
-                style: ElevatedButton.styleFrom(
+              Padding(
+                padding: EdgeInsets.only(
+                    top: 12.0), 
+                child: ElevatedButton.icon(
+                  onPressed: () => onBackPressed(siteIndex),
+                  icon: Icon(Icons.arrow_back),
+                  label: Text('Back'),
+                  style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     iconColor: Theme.of(context).secondaryHeaderColor,
-                    foregroundColor: Theme.of(context).secondaryHeaderColor),
+                    foregroundColor: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
               ),
               location.image != null &&
                       location.image!.isNotEmpty &&

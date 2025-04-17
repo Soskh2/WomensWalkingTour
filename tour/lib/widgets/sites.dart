@@ -61,16 +61,16 @@ class Sites extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Text(
                                       "${fields[index].index! + 1} - ${fields[index].name}",
-                                      style: const TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 14),
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(height: 8),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.only(bottom: 16.0),
+                                        const EdgeInsets.only(bottom: 12.0),
                                     child: TextButton(
                                       onPressed: () {
                                         onSiteChanged(fields[index].index);

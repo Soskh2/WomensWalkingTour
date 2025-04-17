@@ -1,0 +1,2 @@
+C:/Users/Sofia/thesis/WomensWalkingTour/tour/android/app/.cxx/Debug/132r34wl/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Sofia/thesis/WomensWalkingTour/tour/android/app/.cxx/Debug/132r34wl/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -15,9 +15,25 @@
       font-family: sans-serif;
     }
 
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px; 
+    }
+    
+    .text {
+      font-size: 12px;
+      color: #333;
+      max-width: 280px;
+      text-align: center;
+      padding: 0 10px;
+      font-weight: bold;
+    }
+
     .phone-frame {
       width: 320px;
-      height: 90%;
+      height: 85vh;
       background: #000;
       border: 16px solid #333;
       border-radius: 36px;
@@ -34,7 +50,7 @@
 
     .notch {
       width: 210px;
-      height: 30px;
+      height: 20px;
       background: #000;
       border-radius: 0 0 15px 15px;
       position: absolute;
@@ -45,9 +61,14 @@
   </style>
 </head>
 <body>
-  <div class="phone-frame">
-    <div class="notch"></div>
-    <iframe class="phone-screen" src="app.html"></iframe>
+  <div class="container">
+    <div class="phone-frame">
+      <div class="notch"></div>
+      <iframe class="phone-screen" src="app.html"></iframe>
+    </div>
+    <div class="text">
+      <p>Please note that this unofficial app is for demonstration purposes only and does not represent Yale University in any way.</p>
+    </div>
   </div>
 </body>
 </html>
