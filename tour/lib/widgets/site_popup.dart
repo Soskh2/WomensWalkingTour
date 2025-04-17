@@ -18,7 +18,7 @@ class SitePopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-          const EdgeInsets.only(left: 16.0, top: 42.0, right: 16.0, bottom: 20),
+          const EdgeInsets.only(left: 16.0, top: 36.0, right: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -71,7 +71,7 @@ class SitePopup extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             site.name,
             style: const TextStyle(fontSize: 18),
@@ -79,29 +79,33 @@ class SitePopup extends StatelessWidget {
           const SizedBox(height: 16),
           Column(
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  onSiteSelect(site.index);
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: 10.0), 
+                child: ElevatedButton(
+                  onPressed: () {
+                    onSiteSelect(site.index);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(200, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    foregroundColor: Theme.of(context).secondaryHeaderColor,
+                    backgroundColor: Colors.white,
+                    side: BorderSide(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      width: 1,
+                    ),
                   ),
-                  foregroundColor: Theme.of(context).secondaryHeaderColor,
-                  backgroundColor: Colors.white,
-                  side: BorderSide(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    width: 1,
+                  child: const Text(
+                    'Details',
+                    style: TextStyle(fontSize: 20),
                   ),
-                ),
-                child: const Text(
-                  'Details',
-                  style: TextStyle(fontSize: 20),
                 ),
               ),
             ],
-          ),
+          )
         ],
       ),
     );

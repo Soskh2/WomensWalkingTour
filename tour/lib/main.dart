@@ -18,7 +18,7 @@ import 'states.dart';
 
 void main() async {
   if (kIsWeb) {
-    await dotenv.load(fileName: ".env"); 
+    await dotenv.load(fileName: "dotenv"); 
   } else {
     WidgetsFlutterBinding.ensureInitialized();
     await FlutterConfig.loadEnvVariables();
