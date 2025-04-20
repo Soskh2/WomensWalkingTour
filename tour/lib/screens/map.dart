@@ -48,8 +48,6 @@ class MapPageState extends State<MapPage> {
         // print(locationProvider.currentPosition);
         _currentLocation = LatLng(locationProvider.currentPosition!.latitude,
             locationProvider.currentPosition!.longitude);
-
-  
       }
 
 
